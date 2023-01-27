@@ -48,7 +48,7 @@ void main() {
 
 This example illustrates that this kind of union type can be used to declare that a particular formal parameter can be an `int` or a `String`, and nothing else, and it is then possible to pass actual arguments which are of type `int` or `String`, as long as they are explicitly marked as having the union type and being a particular operand (first or second, in this case) of that union type.
 
-The method `split` is used to handle the different cases (when the value of `x` is actually an `int` respectively a `String`). It is safe in the sense that it accepts actual arguments for the operands of the union type; that is, the first argument is a function (a callback) that receives an argument of type `int`, and the second argument is a function that receives an argument of type `String`.
+The method `split` is used to handle the different cases (when the value of `x` is actually an `int` respectively a `String`). It is safe in the sense that it accepts actual arguments for the operands of the union type; that is, the first argument is a function (a callback) that receives an argument of type `int`, and the second argument is a function that receives an argument of type `String`, and `split` is going to call the one that fits the actual `value`.
 
 An alternative approach would be to use a plain type test:
 
@@ -61,7 +61,7 @@ int g(Union2<int, String> x) {
 }
 ```
 
-This will run faster, but there is no static type check on the cases: `x.value` has the type `Object?`, and there is no notification (error or warning) if we test for the wrong set of types (say, if we're testing for a `double` and for a `String`, and forget all about `int`).
+This will run faster (because we avoid creating and calling function objects), but there is no static type check on the cases: `x.value` has the type `Object?`, and there is no notification (error or warning) if we test for the wrong set of types (say, if we're testing for a `double` and for a `String`, and forget all about `int`).
 
 ## Inline class implications
 
@@ -101,7 +101,7 @@ However, the point is that this will only happen if the code uses a type cast, a
 
 An alternative approach would be to use a regular class (rather than an inline class) to model each union type. The code would be identical, except that the word `inline` would be deleted from the declaration of each class `Union1 .. Union9`. If we had done that then the use of union types would be considerably more expensive at run time, because every union type would be reified as an actual wrapper object.
 
-With this approach, we would have firm guarantees (no instance of a class `C` can be obtained without running a generative constructor of `C`, and the constructors of the `Union...` classes _do_ check that the given `value` has the required type), i.e., there would never exist an invalid union value. On the other hand, it would be a performance cost (time and space), and the assumption behind this package is that the trade-off associated with the use of inline classes is more useful in practice.
+On the other hand, we would have firm guarantees (no instance of a class `C` can be obtained without running a generative constructor of `C`, and the constructors of the `Union...` classes _do_ check that the given `value` has the required type), i.e., there would never exist an invalid union value. On the other hand, it would be a performance cost (time and space), and the assumption behind this package is that the trade-off associated with the use of inline classes is more useful in practice.
 
 ## Future extensions
 
@@ -123,4 +123,4 @@ void main() {
 }
 ```
 
-This would work because an expression `e` of type `int` in a location where a `Union2<int, String>` is expected is implicitly rewritten as `Union2<int, String>.from1(e)` if `Union2.from1` is an implicit constructor. Similarly, `'Hello'` would be implicitly rewritten as `Union2<int, String>.from2('Hello')`.
+This would work because an expression `e` of type `int` in a location where a `Union2<int, String>` is expected is implicitly rewritten as `Union2<int, String>.from1(e)` if `Union2.from1` is an implicit constructor. Similarly, `'Hello'` would be implicitly rewritten as `Union2<int, String>.from2('Hello')` if `Union2.from2` is implicit.
