@@ -1,5 +1,5 @@
-[![Build Status](https://github.com/eernstg/inline_union_types/workflows/Dart%20CI/badge.svg)](https://github.com/lrhn/charcode/actions?query=workflow%3A"Dart+CI")
 <!--
+[![Build Status](https://github.com/eernstg/inline_union_types/workflows/Dart%20CI/badge.svg)](https://github.com/lrhn/charcode/actions?query=workflow%3A"Dart+CI")
 [![Pub](https://img.shields.io/pub/v/unline_union_type.svg)](https://pub.dev/packages/inline_union_type)
 [![package publisher](https://img.shields.io/pub/publisher/inline_union_type.svg)](https://pub.dev/packages/inline_union_type/publisher)
 -->
