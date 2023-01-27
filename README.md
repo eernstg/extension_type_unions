@@ -26,7 +26,7 @@ Those properties would certainly be supported by an actual language mechanism, b
 
 ## Concrete syntex and example
 
-Now please forget about the nice, conceptual notation `T1 | T2`. The actual notation for that union type with this package is `Union2<T1, T2>`. There is a generic inline class for each arity up to 9, that is `Union1, Union2, ... Union9`.
+Now please forget about the nice, conceptual notation `T1 | T2`. The actual notation for that union type with this package is `Union2<T1, T2>`. There is a generic inline class for each arity up to 9, that is `Union2, Union3, ... Union9`.
 
 Here is an example showing how it can be used:
 
