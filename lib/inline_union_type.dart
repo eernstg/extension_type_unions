@@ -19,8 +19,7 @@ class InvalidUnionTypeException implements Exception {
   String toString() => '$type: value has type ${value.runtimeType}';
 }
 
-@inline
-class Union2<X1, X2> {
+inline class Union2<X1, X2> {
   final Object? value;
 
   Union2.from1(X1 this.value);
@@ -64,8 +63,7 @@ class Union2<X1, X2> {
   }
 }
 
-@inline
-class Union3<X1, X2, X3> {
+inline class Union3<X1, X2, X3> {
   final Object? value;
 
   Union3.from1(X1 this.value);
@@ -120,8 +118,7 @@ class Union3<X1, X2, X3> {
   }
 }
 
-@inline
-class Union4<X1, X2, X3, X4> {
+inline class Union4<X1, X2, X3, X4> {
   final Object? value;
 
   Union4.from1(X1 this.value);
@@ -184,8 +181,7 @@ class Union4<X1, X2, X3, X4> {
   }
 }
 
-@inline
-class Union5<X1, X2, X3, X4, X5> {
+inline class Union5<X1, X2, X3, X4, X5> {
   final Object? value;
 
   Union5.from1(X1 this.value);
@@ -257,8 +253,7 @@ class Union5<X1, X2, X3, X4, X5> {
   }
 }
 
-@inline
-class Union6<X1, X2, X3, X4, X5, X6> {
+inline class Union6<X1, X2, X3, X4, X5, X6> {
   final Object? value;
 
   Union6.from1(X1 this.value);
@@ -343,8 +338,7 @@ class Union6<X1, X2, X3, X4, X5, X6> {
   }
 }
 
-@inline
-class Union7<X1, X2, X3, X4, X5, X6, X7> {
+inline class Union7<X1, X2, X3, X4, X5, X6, X7> {
   final Object? value;
 
   Union7.from1(X1 this.value);
@@ -438,8 +432,7 @@ class Union7<X1, X2, X3, X4, X5, X6, X7> {
   }
 }
 
-@inline
-class Union8<X1, X2, X3, X4, X5, X6, X7, X8> {
+inline class Union8<X1, X2, X3, X4, X5, X6, X7, X8> {
   final Object? value;
 
   Union8.from1(X1 this.value);
@@ -542,8 +535,7 @@ class Union8<X1, X2, X3, X4, X5, X6, X7, X8> {
   }
 }
 
-@inline
-class Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9> {
+inline class Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9> {
   final Object? value;
 
   Union9.from1(X1 this.value);

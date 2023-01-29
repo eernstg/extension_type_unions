@@ -33,7 +33,7 @@ String unionSource(int arity) {
   var source = StringBuffer('');
 
   // Class header.
-  source.write('@inline class Union$arity<');
+  source.write('inline class Union$arity<');
   for (int i = 1; i < arity; ++i) {
     source.write('X$i, ');
   }
