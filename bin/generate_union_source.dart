@@ -19,52 +19,94 @@ const frontMatter = """
 /// to report that such a value has been encountered.
 class InvalidUnionTypeException implements Exception {
   /// Description of the invalid union type.
-  final String message;
+  final String type;
+  final Object? value;
 
-  InvalidUnionTypeException(this.message);
+  InvalidUnionTypeException(this.type, this.value);
 
   @override
-  String toString() => message;
+  String toString() => '\$type: value has type \${value.runtimeType}';
 }
 """;
 
 String unionSource(int arity) {
   var source = StringBuffer('');
-  source.write('inline class Union$arity<');
+
+  // Class header.
+  source.write('@inline class Union$arity<');
   for (int i = 1; i < arity; ++i) {
     source.write('X$i, ');
   }
-  source.write('X$arity> {\n  final Object? value;\n');
+  source.write('X$arity> {\n  final Object? value;\n\n');
+
+  // Constructors.
   for (int i = 1; i <= arity; ++i) {
     source.write('  Union$arity.from$i(X$i this.value);\n');
   }
+
+  // Getter `isValid`.
   source.write('\n  bool get isValid => ');
   for (int i = 1; i < arity; ++i) {
     source.write('value is X$i || ');
   }
-  source.write('value is X$arity;\n');
+  source.write('value is X$arity;\n\n');
+
+  // Getters `as#OrNull`.
+  for (int i = 1; i <= arity; ++i) {
+    source.write(
+        '  X$i? get as${i}OrNull => value is X$i ? value as X$i : null;\n');
+  }
+  source.write('\n');
+
+  // Getters `as#`.
+  for (int i = 1; i <= arity; ++i) {
+    source.write('  X$i get as$i => value as X$i;\n');
+  }
+  source.write('\n');
+
+  // Getters `is#`.
+  for (int i = 1; i <= arity; ++i) {
+    source.write('  bool get is$i => value is X$i;\n');
+  }
+
+  // Method `split`.
   source.write('\n  R split<R>(');
   for (int i = 1; i < arity; ++i) {
-    source.write('R Function(X$i) if$i, ');
+    source.write('R Function(X$i) on$i, ');
   }
-  source.write('R Function(X$arity) if$arity');
+  source.write('R Function(X$arity) on$arity');
   if (arity > 2) source.write(',');
-  source.write(') {\n    var v = value;');
+  source.write(') {\n    var v = value;\n');
   for (int i = 1; i <= arity; ++i) {
-    source.write('    if (v is X$i) return if$i(v);\n');
+    source.write('    if (v is X$i) return on$i(v);\n');
   }
-  
   var typeArguments = StringBuffer('');
   for (int i = 1; i < arity; ++i) {
     typeArguments.write('\$X$i, ');
   }
   typeArguments.write('\$X$arity');
-
-  var invalidityMessage =
-      '"Union$arity<$typeArguments> has value of type "\n'
-      '        "\${value.runtimeType}"';
   source.write('    throw InvalidUnionTypeException(\n');
-  source.write('        $invalidityMessage);\n  }\n}\n');
+  source.write('      "Union$arity<$typeArguments>",\n');
+  source.write('      value,\n    );\n  }\n');
+  
+  // Method `splitNamed`.
+  source.write('\n  R? splitNamed<R>({\n');
+  for (int i = 1; i < arity; ++i) {
+    source.write('    R Function(X$i)? on$i,\n');
+  }
+  source.write('    R Function(X$arity)? on$arity,\n');
+  source.write('    R Function(Object?)? onOther,\n');
+  source.write('    R Function(Object?)? onInvalid,\n');
+  source.write('  }) {\n    var v = value;\n');
+  for (int i = 1; i <= arity; ++i) {
+    source.write(
+        '    if (v is X$i) return (on$i ?? onOther)?.call(v);\n');
+  }
+  source.write('    if (onInvalid != null) return onInvalid(v);');
+  source.write('    throw InvalidUnionTypeException(\n');
+  source.write('      "Union$arity<$typeArguments>",\n');
+  source.write('      value,\n    );\n  }\n}\n');
+
   return source.toString();
 }
 
@@ -98,7 +140,8 @@ String extensionSource() {
       var typeParametersSource = typeParametersWithoutY(arity, yIndex);
       source.write('  $typeSource asUnion$arity$yIndex'
           '<$typeParametersSource>() => '
-          'Union$arity.from$yIndex(this);\n');
+          // Change `$typeSource` to `Union$arity` when inference works.
+          '$typeSource.from$yIndex(this);\n');
     }
   }
   source.write('}\n');
