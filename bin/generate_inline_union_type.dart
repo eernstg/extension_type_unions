@@ -2,6 +2,16 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// This code generator will generate the contents of the library
+// '../lib/inline_union_type.dart', with non-standard formatting. Use it to
+// obtain a near-finished version of that library, and then run `dart format`
+// on the output in order to obtain a version which is ready to publish.
+//
+// The reason why it makes sense to obtain that library from a code generator
+// is that the code in that library is highly regular (you could say that it
+// is "meta-redundant"), and manual writing (or even editing) of the library
+// might easily give rise to accidental inconsistencies.
+
 import 'dart:io';
 
 const maxArity = 9;
