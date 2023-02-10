@@ -59,9 +59,9 @@ class JsonClassList extends JsonClassBase {
 }
 
 class JsonClassObject extends JsonClassBase {
-  get typeAnnotation => '$className';
+  get typeAnnotation => className;
   final String className;
-  final Map<String, JsonClassBase> fields = {};
+  final Map<String, (String, JsonClassBase)> fields = {};
 
   JsonClassObject(this.className);
 
@@ -70,8 +70,10 @@ class JsonClassObject extends JsonClassBase {
 
   toString() {
     var buffer = StringBuffer('class $className {\n');
-    for (var entry in fields.entries) {
-      buffer.write('  ${entry.value.typeAnnotation} ${entry.key};\n');
+    var keys = fields.keys.toList()..sort();
+    for (var key in keys) {
+      var typeAnnotation = fields[key]!.$1.typeAnnotation;
+      buffer.write('  $typeAnnotation $key;\n');
     }
     buffer.write('}');
     return buffer.toString();
@@ -89,10 +91,27 @@ class JsonClassObject extends JsonClassBase {
   }
 }
 
+String toCamelName(String jsonName) {
+  if (!jsonName.contains('_')) return jsonName;
+  var buffer = StringBuffer('');
+  bool doUpCase = false;
+  for (var rune in jsonName.runes) {
+    var char = String.fromCharCode(rune);
+    if (char == '_') {
+      doUpCase = true;
+    } else {
+      if (doUpCase) char = char.toUpperCase();
+      doUpCase = false;
+      buffer.write(char);
+    }
+  }
+  return buffer.toString();
+}
+
 class JsonClassCollector {
   var _nameIndex = 1;
   String freshName(String prefix) => '$prefix${_nameIndex++}';
-  Set<JsonClassBase> result = {};
+  Set<JsonClassObject> result = {};
 
   JsonClassBase computeJsonClass(Json value) {
     return value.splitNamed<JsonClassBase>(
@@ -107,8 +126,10 @@ class JsonClassCollector {
         var jsonObject = JsonClassObject(className);
         for (var entry in jsonMap.entries) {
           var fieldType = computeJsonClass(entry.value);
-          jsonObject.fields[entry.key] = fieldType;
+          var fieldName = toCamelName(entry.key);
+          jsonObject.fields[fieldName] = (entry.key, fieldType);
         }
+        result.add(jsonObject);
         return jsonObject;
       },
     )!;
