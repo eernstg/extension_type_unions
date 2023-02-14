@@ -34,6 +34,13 @@ class JsonClassBool extends JsonClassAtomic {
   bool operator ==(other) => other is JsonClassBool;
 }
 
+class JsonClassNum extends JsonClassAtomic {
+  get typeAnnotation => 'num';
+
+  int get hashCode => (JsonClassNum).hashCode;
+  bool operator ==(other) => other is JsonClassNum;
+}
+
 class JsonClassInt extends JsonClassAtomic {
   get typeAnnotation => 'int';
 
@@ -56,7 +63,7 @@ class JsonClassString extends JsonClassAtomic {
 }
 
 class JsonClassList extends JsonClassBase {
-  get typeAnnotation => 'List<$typeArgument>';
+  get typeAnnotation => 'List<${typeArgument.typeAnnotation}>';
   JsonClassBase typeArgument;
   final Set<JsonClassBase> elementTypes;
 
@@ -103,19 +110,20 @@ class JsonClassList extends JsonClassBase {
 }
 
 class JsonClassObject extends JsonClassBase {
-  String className;
+  final String className;
   final Map<String, (String, JsonClassBase)> fields = {};
 
   JsonClassObject(this.className);
 
-  int get hashCode => 
+  int get hashCode =>
       Object.hashAllUnordered([JsonClassObject, ...fields.keys]);
-  get typeAnnotation => className;
+  String get typeAnnotation => className;
 
   bool canBeSameClass(JsonClassObject other) {
     if (identical(this, other)) return true;
     if (fields.length != other.fields.length) return false;
     for (var name in fields.keys) {
+      var type = fields[name]!.$2;
       var otherType = other.fields[name]?.$2;
       if (otherType == null) {
         // No such field in `other`.
@@ -123,17 +131,19 @@ class JsonClassObject extends JsonClassBase {
       } else if (otherType is JsonClassObject) {
         var otherTypeName = otherType.className;
         if (otherTypeName == null) return false;
-        var type = fields[name]!.$2;
         if (type is! JsonClassObject) return false;
         var typeName = type.className;
         if (typeName != otherTypeName) return false;
       } else if (otherType is JsonClassList) {
-        return false;
+        return type is JsonClassList &&
+            type.typeArgument == otherType.typeArgument;
+      } else if (otherType is JsonClassMap) {
+        return type is JsonClassMap &&
+            type.valueType == otherType.valueType;
       } else if (otherType is JsonClassAtomic) {
-        var type = fields[name]!.$2;
-        if (type.runtimeType != otherType.runtimeType) return false;
+        if (type != otherType) return false;
       } else if (otherType is JsonClassDynamic) {
-        return false;
+        return type is JsonClassDynamic;
       } else {
         throw 'Not yet handled in canBeSameClass: $otherType';
       }
@@ -166,7 +176,7 @@ class JsonClassObject extends JsonClassBase {
     buffer.write('}');
     return buffer.toString();
   }
-  
+
   bool operator ==(other) {
     if (other is! JsonClassObject) return false;
     if (className != other.className) return false;
@@ -186,6 +196,28 @@ class JsonClassDynamic extends JsonClassBase {
     JsonClassObject classToReplace,
     JsonClassObject replacementClass,
   ) {}
+}
+
+class JsonClassNullable extends JsonClassBase {
+  get typeAnnotation => '${baseType.typeAnnotation}?';
+  JsonClassBase baseType;
+  JsonClassNullable(this.baseType);
+  void replace(
+    JsonClassObject classToReplace,
+    JsonClassObject replacementClass,
+  ) =>
+      baseType.replace(classToReplace, replacementClass);
+}
+
+class JsonClassMap extends JsonClassBase {
+  get typeAnnotation => 'Map<String, ${valueType.typeAnnotation}>';
+  JsonClassBase valueType;
+  JsonClassMap(this.valueType);
+  void replace(
+    JsonClassObject classToReplace,
+    JsonClassObject replacementClass,
+  ) =>
+      valueType.replace(classToReplace, replacementClass);
 }
 
 String toCamelName(String jsonName) {
@@ -211,8 +243,45 @@ class JsonClassCollector {
   Set<JsonClassObject> classes = {};
   Set<JsonClassList> lists = {};
 
-  JsonClassBase computeJsonClasses(Json value) {
-    var outermostType = _computeJsonClasses(value);
+  /// Compute a possible covering of [value] by Dart classes
+  ///
+  /// For the given [Json] [value], compute a proposal for how this value
+  /// could be modeled using a set of Dart classes. In general, a map in
+  /// [value] is modeled as an instance of a class with one getter for each
+  /// key in the map. A list in [value] is modeled as a `List<T>` where `T`
+  /// is the type of the model of the elements of the list, or `dynamic` if
+  /// the list elements are modeled as several different types.
+  ///
+  /// In particular, `[1, 2]` is modeled as a `List<int>`, `[1, 2.5]` is
+  /// modeled as a `List<num>`, `[1.5, 2.5]` is modeled as a `List<double>`,
+  /// `[{"x": 1}, {"x": 2}]` is modeled as a `List<C>` if the two maps are
+  /// both modeled by the class `C`, and `[{"x": 1}, null]` is modeled as a
+  /// `List<C?>`.
+  ///
+  /// In the case where a list contains maps whose values are all the same
+  /// atomic type `T`, but whose sets of keys are different, an approach where
+  /// those maps are modeled as distinct classes (one class for each distinct
+  /// key set) would yield a `List<dynamic>` with several (or even many)
+  /// different types of objects. This is not likely to be a convenient model
+  /// of the actual situation. Hence, this is modeled by keeping the maps as
+  /// maps of type `Map<String, T>`, and hence the list will be modeled as a
+  /// `List<Map<String, T>>`. Any occurrences of null as a value is accepted
+  /// under this approach, yielding a `List<Map<String, T?>>`.
+  ///
+  /// If [useMapsAnywhere] is true then every map in [value] whose values are
+  /// all of the same atomic type `T` (or all of type `T?`) is modeled as a
+  /// `Map<String, T> (respectively `Map<String, T?>`).
+  ///
+  /// The returned value is the type that models the topmost construct in
+  /// [value].
+  JsonClassBase computeJsonClasses(
+    Json value, {
+    bool useMapsAnywhere = false,
+  }) {
+    var outermostType = _computeJsonClasses(
+      value,
+      useMapsAnywhere: useMapsAnywhere,
+    );
 
     while (true) {
       Map<int, Set<JsonClassObject>> classesBySize = {};
@@ -258,12 +327,15 @@ class JsonClassCollector {
     return outermostType;
   }
 
-  /// Compute the raw set of classes
-  ///
-  /// The returned set is not normalized, that is, it may contain several
-  /// classes with identical declarations, reflecting the fact that several
-  /// parts of the given [Json] value had the same structure.
-  JsonClassBase _computeJsonClasses(Json value) {
+  // Compute the raw set of classes
+  //
+  // The returned set is not normalized, that is, it may contain several
+  // classes with identical declarations, reflecting the fact that several
+  // parts of the given [Json] value had the same structure.
+  JsonClassBase _computeJsonClasses(
+    Json value, {
+    bool useMapsAnywhere = false,
+  }) {
     return value.splitNamed<JsonClassBase>(
       onNull: () => JsonClassNull(),
       onBool: (_) => JsonClassBool(),
@@ -273,7 +345,10 @@ class JsonClassCollector {
       onList: (jsonValues) {
         var elementTypes = <JsonClassBase>{};
         for (var jsonValue in jsonValues) {
-          var elementType = _computeJsonClasses(jsonValue);
+          var elementType = _computeJsonClasses(
+            jsonValue,
+            useMapsAnywhere: useMapsAnywhere,
+          );
           elementTypes.add(elementType);
         }
         JsonClassBase typeArgument;
@@ -281,6 +356,24 @@ class JsonClassCollector {
           typeArgument = JsonClassNull();
         } else if (elementTypes.length == 1) {
           typeArgument = elementTypes.single;
+        } else if (elementTypes.length == 2 &&
+            elementTypes.contains(JsonClassInt()) &&
+            elementTypes.contains(JsonClassDouble())) {
+          typeArgument = JsonClassNum();
+        } else if (elementTypes.length == 2 &&
+            elementTypes.contains(JsonClassNull())) {
+          late JsonClassBase otherType;
+          for (var elementType in elementTypes) {
+            if (elementType is JsonClassNull) continue;
+            otherType = elementType;
+            break;
+          }
+          typeArgument = JsonClassNullable(otherType);
+        } else if (elementTypes.length == 3 &&
+            elementTypes.contains(JsonClassInt()) &&
+            elementTypes.contains(JsonClassDouble()) &&
+            elementTypes.contains(JsonClassNull())) {
+          typeArgument = JsonClassNullable(JsonClassNum());
         } else {
           typeArgument = JsonClassDynamic();
         }
@@ -291,8 +384,47 @@ class JsonClassCollector {
       onMap: (jsonMap) {
         var className = freshName('JsonClass');
         var jsonObject = JsonClassObject(className);
+
+        // Detect special case: Model a Json map as a Dart map, in the case
+        // where it has the same atomic type of value for every key.
+        L: if (useMapsAnywhere) {
+          Set<Type> types = {};
+          for (var value in jsonMap.values) {
+            if (value is Map || value is List) break L;
+            types.add((value as dynamic).runtimeType);
+          }
+          bool isNullable = types.contains(Null);
+          if (isNullable) types.remove(Null);
+          if (types.length == 1) {
+            var dartType = types.single;
+            JsonClassBase jsonClassType = <Type, JsonClassBase>{
+              bool: JsonClassBool(),
+              num: JsonClassNum(),
+              int: JsonClassInt(),
+              double: JsonClassDouble(),
+              String: JsonClassString(),
+            }[dartType]!;
+            var jsonTypeWithNullability = isNullable
+                ? JsonClassNullable(jsonClassType)
+                : jsonClassType;
+            return JsonClassMap(jsonTypeWithNullability);
+          } else if (types.length == 2) {
+            if (types.contains(int) && types.contains(double)) {
+              var jsonClassType = JsonClassNum();
+              var jsonTypeWithNullability = isNullable
+                  ? JsonClassNullable(jsonClassType)
+                  : jsonClassType;
+              return jsonClassType;
+            }
+          }
+        }
+
+        // Normal case, treat the map as an encoding of a Dart class instance.
         for (var entry in jsonMap.entries) {
-          var fieldType = _computeJsonClasses(entry.value);
+          var fieldType = _computeJsonClasses(
+            entry.value,
+            useMapsAnywhere: useMapsAnywhere,
+          );
           var fieldName = toCamelName(entry.key);
           jsonObject.fields[fieldName] = (entry.key, fieldType);
         }
