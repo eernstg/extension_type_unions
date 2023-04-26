@@ -4,9 +4,9 @@
 [![package publisher](https://img.shields.io/pub/publisher/inline_union_type.svg)](https://pub.dev/packages/inline_union_type/publisher)
 -->
 
-# UNDER CONSTRUCTION, PLEASE IGNORE
+# UNDER CONSTRUCTION
 
-Please ignore this package until it (and the associated inline class feature of Dart) is in a working state. Or take a look if you're interested, but don't expect things to be stable or even working at this point.
+Inline classes is an upcoming feature, still experimental, and it may change over time. This repository uses inline classes to emulate union types, and hence it is also inherently experimental. Use `--enable-experiment=inline-class` in commands in order to enable inline classes.
 
 # Inline Union Types
 
