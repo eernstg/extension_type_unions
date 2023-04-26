@@ -27,7 +27,7 @@ void main() {
   // We can introduce union typed expressions by calling a constructor.
   // The constructor `UnionN.inK` injects a value of the `K`th type argument
   // to a union type `UnionN` with `N` type arguments. For example,
-  // `Union2<int, String>.in1` turns an `int` into an `int | String`.
+  // `Union2<int, String>.in1` turns an `int` into a `Union2<int, String>`.
   print(doSplit(Union2.in1(10))); // Prints '10'.
   print(doSplit(Union2.in2('10'))); // '2'.
 
