@@ -52,7 +52,9 @@ void main() {
   // because it is always possible to force the type by an explicit cast. This
   // situation can be handled in a `splitNamed` invocation as shown in
   // `doSplitNamedInvalid`, and it can be detected using `isValid`.
-  var u = true as Union2<int, String>; // Bad, but no compile-time error.
+  // If it is not detected, `split` will throw.
+  var u = true as Union2<int, String>; // Bad, but no error.
   print(doSplitNamedInvalid(u)); // '-1'.
   print(u.isValid); // 'false'.
+  // doSplit(u); // Throws.
 }
