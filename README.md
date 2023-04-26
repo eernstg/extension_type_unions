@@ -24,7 +24,7 @@ The kind of union type which is supported by this package does not have any of t
 
 Those properties would certainly be supported by an actual language mechanism, but this package just provides a very simple version of union types where these algebraic properties are considered unknown. In general, these union types are unrelated, except for standard covariance (e.g., `int | Car | Never` is a subtype of `num | Vehicle | String`, assuming that `Car` is a subtype of `Vehicle`).
 
-## Concrete syntex and example
+## Concrete syntax and example
 
 Now please forget about the nice, conceptual notation `T1 | T2`. The actual notation for that union type with this package is `Union2<T1, T2>`. There is a generic inline class for each arity up to 9, that is `Union2, Union3, ... Union9`.
 
@@ -41,8 +41,8 @@ int f(Union2<int, String> x) {
 }
 
 void main() {
-  print(f(1.asUnion21())); // '2'.
-  print(f('Hello'.asUnion22())); // '5'.
+  print(f(1.asUnion21)); // '2'.
+  print(f('Hello'.asUnion22)); // '5'.
 }
 ```
 
