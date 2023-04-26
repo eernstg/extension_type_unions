@@ -28,15 +28,15 @@ class InvalidJsonTypeException implements Exception {
 inline class Json {
   final Object? value;
 
-  Json(this.value): assert(isDeepValid(value as Json));
-  const Json.fromNull(): value = null;
+  Json(this.value) : assert(isDeepValid(value as Json));
+  const Json.fromNull() : value = null;
   const Json.fromBool(bool this.value);
   const Json.fromInt(int this.value);
   const Json.fromDouble(double this.value);
   const Json.fromString(String this.value);
   const Json.fromList(List<Json> this.value);
   const Json.fromMap(Map<String, Json> this.value);
-  Json.fromSource(String source): value = jsonDecode(source);
+  Json.fromSource(String source) : value = jsonDecode(source);
 
   static bool isDeepValid(Json json) {
     var v = json.value;

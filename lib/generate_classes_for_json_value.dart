@@ -138,8 +138,7 @@ class JsonClassObject extends JsonClassBase {
         return type is JsonClassList &&
             type.typeArgument == otherType.typeArgument;
       } else if (otherType is JsonClassMap) {
-        return type is JsonClassMap &&
-            type.valueType == otherType.valueType;
+        return type is JsonClassMap && type.valueType == otherType.valueType;
       } else if (otherType is JsonClassAtomic) {
         if (type != otherType) return false;
       } else if (otherType is JsonClassDynamic) {
@@ -387,7 +386,8 @@ class JsonClassCollector {
 
         // Detect special case: Model a Json map as a Dart map, in the case
         // where it has the same atomic type of value for every key.
-        L: if (useMapsAnywhere) {
+        L:
+        if (useMapsAnywhere) {
           Set<Type> types = {};
           for (var value in jsonMap.values) {
             if (value is Map || value is List) break L;
@@ -404,16 +404,14 @@ class JsonClassCollector {
               double: JsonClassDouble(),
               String: JsonClassString(),
             }[dartType]!;
-            var jsonTypeWithNullability = isNullable
-                ? JsonClassNullable(jsonClassType)
-                : jsonClassType;
+            var jsonTypeWithNullability =
+                isNullable ? JsonClassNullable(jsonClassType) : jsonClassType;
             return JsonClassMap(jsonTypeWithNullability);
           } else if (types.length == 2) {
             if (types.contains(int) && types.contains(double)) {
               var jsonClassType = JsonClassNum();
-              var jsonTypeWithNullability = isNullable
-                  ? JsonClassNullable(jsonClassType)
-                  : jsonClassType;
+              var jsonTypeWithNullability =
+                  isNullable ? JsonClassNullable(jsonClassType) : jsonClassType;
               return jsonClassType;
             }
           }

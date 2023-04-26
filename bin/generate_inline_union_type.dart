@@ -98,7 +98,7 @@ String unionSource(int arity) {
   source.write('    throw InvalidUnionTypeException(\n');
   source.write('      "Union$arity<$typeArguments>",\n');
   source.write('      value,\n    );\n  }\n');
-  
+
   // Method `splitNamed`.
   source.write('\n  R? splitNamed<R>({\n');
   for (int i = 1; i < arity; ++i) {
@@ -109,8 +109,7 @@ String unionSource(int arity) {
   source.write('    R Function(Object?)? onInvalid,\n');
   source.write('  }) {\n    var v = value;\n');
   for (int i = 1; i <= arity; ++i) {
-    source.write(
-        '    if (v is X$i) return (on$i ?? onOther)?.call(v);\n');
+    source.write('    if (v is X$i) return (on$i ?? onOther)?.call(v);\n');
   }
   source.write('    if (onInvalid != null) return onInvalid(v);');
   source.write('    throw InvalidUnionTypeException(\n');
@@ -159,7 +158,6 @@ String extensionSource() {
 }
 
 void main() {
-
   print(frontMatter);
   for (int i = 2; i < maxArity; ++i) {
     print(unionSource(i));
