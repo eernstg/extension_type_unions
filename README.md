@@ -123,4 +123,4 @@ void main() {
 }
 ```
 
-This would work because an expression `e` of type `int` in a location where a `Union2<int, String>` is expected is implicitly rewritten as `Union2<int, String>.from1(e)` if `Union2.from1` is an implicit constructor. Similarly, `'Hello'` would be implicitly rewritten as `Union2<int, String>.from2('Hello')` if `Union2.from2` is implicit.
+This would work because an expression `e` of type `int` in a location where a `Union2<int, String>` is expected is implicitly rewritten as `Union2<int, String>.in1(e)` if `Union2.in1` is an implicit constructor. Similarly, `'Hello'` would be implicitly rewritten as `Union2<int, String>.in2('Hello')` if `Union2.in2` is implicit.
