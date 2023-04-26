@@ -4,7 +4,7 @@
 [![package publisher](https://img.shields.io/pub/publisher/inline_union_type.svg)](https://pub.dev/packages/inline_union_type/publisher)
 -->
 
-# UNDER CONSTRUCTION
+# Under Construction
 
 Inline classes is an upcoming feature, still experimental, and it may change over time. This repository uses inline classes to emulate union types, and hence it is also inherently experimental. Use `--enable-experiment=inline-class` in commands in order to enable inline classes.
 
