@@ -1,6 +1,6 @@
 import 'package:inline_union_type/inline_union_type.dart';
 
-// Use `split`: Must cover every case, no nonsense.
+// Use `split`: Must receive a callback for every case, in order.
 
 int doSplit(Union2<int, String> u) => u.split(
   (i) => i,
@@ -31,7 +31,7 @@ void main() {
   print(doSplit(Union2.in1(10))); // Prints '10'.
   print(doSplit(Union2.in2('10'))); // '2'.
 
-  // We can also use the extension getters `UnionNK` where `N` is the arity
+  // We can also use the extension getters `asUnionNK` where `N` is the arity
   // of the union (the number of operands) and `K` is the position of the type
   // argument describing the actual value. So, `asUnion21` for an `int` which
   // gets the type `Union2<int, Never>` (which will work as a `Union2<int, S>`
