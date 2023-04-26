@@ -647,105 +647,79 @@ inline class Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9> {
   }
 }
 
-extension UnionInjectExtension<Y> on Y {
-  Union2<Y, X2> asUnion21<X2>() => Union2<Y, X2>.in1(this);
-  Union2<X1, Y> asUnion22<X1>() => Union2<X1, Y>.in2(this);
-  Union3<Y, X2, X3> asUnion31<X2, X3>() => Union3<Y, X2, X3>.in1(this);
-  Union3<X1, Y, X3> asUnion32<X1, X3>() => Union3<X1, Y, X3>.in2(this);
-  Union3<X1, X2, Y> asUnion33<X1, X2>() => Union3<X1, X2, Y>.in3(this);
-  Union4<Y, X2, X3, X4> asUnion41<X2, X3, X4>() =>
-      Union4<Y, X2, X3, X4>.in1(this);
-  Union4<X1, Y, X3, X4> asUnion42<X1, X3, X4>() =>
-      Union4<X1, Y, X3, X4>.in2(this);
-  Union4<X1, X2, Y, X4> asUnion43<X1, X2, X4>() =>
-      Union4<X1, X2, Y, X4>.in3(this);
-  Union4<X1, X2, X3, Y> asUnion44<X1, X2, X3>() =>
-      Union4<X1, X2, X3, Y>.in4(this);
-  Union5<Y, X2, X3, X4, X5> asUnion51<X2, X3, X4, X5>() =>
-      Union5<Y, X2, X3, X4, X5>.in1(this);
-  Union5<X1, Y, X3, X4, X5> asUnion52<X1, X3, X4, X5>() =>
-      Union5<X1, Y, X3, X4, X5>.in2(this);
-  Union5<X1, X2, Y, X4, X5> asUnion53<X1, X2, X4, X5>() =>
-      Union5<X1, X2, Y, X4, X5>.in3(this);
-  Union5<X1, X2, X3, Y, X5> asUnion54<X1, X2, X3, X5>() =>
-      Union5<X1, X2, X3, Y, X5>.in4(this);
-  Union5<X1, X2, X3, X4, Y> asUnion55<X1, X2, X3, X4>() =>
-      Union5<X1, X2, X3, X4, Y>.in5(this);
-  Union6<Y, X2, X3, X4, X5, X6> asUnion61<X2, X3, X4, X5, X6>() =>
-      Union6<Y, X2, X3, X4, X5, X6>.in1(this);
-  Union6<X1, Y, X3, X4, X5, X6> asUnion62<X1, X3, X4, X5, X6>() =>
-      Union6<X1, Y, X3, X4, X5, X6>.in2(this);
-  Union6<X1, X2, Y, X4, X5, X6> asUnion63<X1, X2, X4, X5, X6>() =>
-      Union6<X1, X2, Y, X4, X5, X6>.in3(this);
-  Union6<X1, X2, X3, Y, X5, X6> asUnion64<X1, X2, X3, X5, X6>() =>
-      Union6<X1, X2, X3, Y, X5, X6>.in4(this);
-  Union6<X1, X2, X3, X4, Y, X6> asUnion65<X1, X2, X3, X4, X6>() =>
-      Union6<X1, X2, X3, X4, Y, X6>.in5(this);
-  Union6<X1, X2, X3, X4, X5, Y> asUnion66<X1, X2, X3, X4, X5>() =>
-      Union6<X1, X2, X3, X4, X5, Y>.in6(this);
-  Union7<Y, X2, X3, X4, X5, X6, X7> asUnion71<X2, X3, X4, X5, X6, X7>() =>
-      Union7<Y, X2, X3, X4, X5, X6, X7>.in1(this);
-  Union7<X1, Y, X3, X4, X5, X6, X7> asUnion72<X1, X3, X4, X5, X6, X7>() =>
-      Union7<X1, Y, X3, X4, X5, X6, X7>.in2(this);
-  Union7<X1, X2, Y, X4, X5, X6, X7> asUnion73<X1, X2, X4, X5, X6, X7>() =>
-      Union7<X1, X2, Y, X4, X5, X6, X7>.in3(this);
-  Union7<X1, X2, X3, Y, X5, X6, X7> asUnion74<X1, X2, X3, X5, X6, X7>() =>
-      Union7<X1, X2, X3, Y, X5, X6, X7>.in4(this);
-  Union7<X1, X2, X3, X4, Y, X6, X7> asUnion75<X1, X2, X3, X4, X6, X7>() =>
-      Union7<X1, X2, X3, X4, Y, X6, X7>.in5(this);
-  Union7<X1, X2, X3, X4, X5, Y, X7> asUnion76<X1, X2, X3, X4, X5, X7>() =>
-      Union7<X1, X2, X3, X4, X5, Y, X7>.in6(this);
-  Union7<X1, X2, X3, X4, X5, X6, Y> asUnion77<X1, X2, X3, X4, X5, X6>() =>
-      Union7<X1, X2, X3, X4, X5, X6, Y>.in7(this);
-  Union8<Y, X2, X3, X4, X5, X6, X7, X8>
-      asUnion81<X2, X3, X4, X5, X6, X7, X8>() =>
-          Union8<Y, X2, X3, X4, X5, X6, X7, X8>.in1(this);
-  Union8<X1, Y, X3, X4, X5, X6, X7, X8>
-      asUnion82<X1, X3, X4, X5, X6, X7, X8>() =>
-          Union8<X1, Y, X3, X4, X5, X6, X7, X8>.in2(this);
-  Union8<X1, X2, Y, X4, X5, X6, X7, X8>
-      asUnion83<X1, X2, X4, X5, X6, X7, X8>() =>
-          Union8<X1, X2, Y, X4, X5, X6, X7, X8>.in3(this);
-  Union8<X1, X2, X3, Y, X5, X6, X7, X8>
-      asUnion84<X1, X2, X3, X5, X6, X7, X8>() =>
-          Union8<X1, X2, X3, Y, X5, X6, X7, X8>.in4(this);
-  Union8<X1, X2, X3, X4, Y, X6, X7, X8>
-      asUnion85<X1, X2, X3, X4, X6, X7, X8>() =>
-          Union8<X1, X2, X3, X4, Y, X6, X7, X8>.in5(this);
-  Union8<X1, X2, X3, X4, X5, Y, X7, X8>
-      asUnion86<X1, X2, X3, X4, X5, X7, X8>() =>
-          Union8<X1, X2, X3, X4, X5, Y, X7, X8>.in6(this);
-  Union8<X1, X2, X3, X4, X5, X6, Y, X8>
-      asUnion87<X1, X2, X3, X4, X5, X6, X8>() =>
-          Union8<X1, X2, X3, X4, X5, X6, Y, X8>.in7(this);
-  Union8<X1, X2, X3, X4, X5, X6, X7, Y>
-      asUnion88<X1, X2, X3, X4, X5, X6, X7>() =>
-          Union8<X1, X2, X3, X4, X5, X6, X7, Y>.in8(this);
-  Union9<Y, X2, X3, X4, X5, X6, X7, X8, X9>
-      asUnion91<X2, X3, X4, X5, X6, X7, X8, X9>() =>
-          Union9<Y, X2, X3, X4, X5, X6, X7, X8, X9>.in1(this);
-  Union9<X1, Y, X3, X4, X5, X6, X7, X8, X9>
-      asUnion92<X1, X3, X4, X5, X6, X7, X8, X9>() =>
-          Union9<X1, Y, X3, X4, X5, X6, X7, X8, X9>.in2(this);
-  Union9<X1, X2, Y, X4, X5, X6, X7, X8, X9>
-      asUnion93<X1, X2, X4, X5, X6, X7, X8, X9>() =>
-          Union9<X1, X2, Y, X4, X5, X6, X7, X8, X9>.in3(this);
-  Union9<X1, X2, X3, Y, X5, X6, X7, X8, X9>
-      asUnion94<X1, X2, X3, X5, X6, X7, X8, X9>() =>
-          Union9<X1, X2, X3, Y, X5, X6, X7, X8, X9>.in4(this);
-  Union9<X1, X2, X3, X4, Y, X6, X7, X8, X9>
-      asUnion95<X1, X2, X3, X4, X6, X7, X8, X9>() =>
-          Union9<X1, X2, X3, X4, Y, X6, X7, X8, X9>.in5(this);
-  Union9<X1, X2, X3, X4, X5, Y, X7, X8, X9>
-      asUnion96<X1, X2, X3, X4, X5, X7, X8, X9>() =>
-          Union9<X1, X2, X3, X4, X5, Y, X7, X8, X9>.in6(this);
-  Union9<X1, X2, X3, X4, X5, X6, Y, X8, X9>
-      asUnion97<X1, X2, X3, X4, X5, X6, X8, X9>() =>
-          Union9<X1, X2, X3, X4, X5, X6, Y, X8, X9>.in7(this);
-  Union9<X1, X2, X3, X4, X5, X6, X7, Y, X9>
-      asUnion98<X1, X2, X3, X4, X5, X6, X7, X9>() =>
-          Union9<X1, X2, X3, X4, X5, X6, X7, Y, X9>.in8(this);
-  Union9<X1, X2, X3, X4, X5, X6, X7, X8, Y>
-      asUnion99<X1, X2, X3, X4, X5, X6, X7, X8>() =>
-          Union9<X1, X2, X3, X4, X5, X6, X7, X8, Y>.in9(this);
+extension UnionInjectExtension<X> on X {
+  Union2<X, Never> asUnion21<X>() => Union2.in1(this);
+  Union2<Never, X> asUnion22<X>() => Union2.in2(this);
+  Union3<X, Never, Never> asUnion31<X>() => Union3.in1(this);
+  Union3<Never, X, Never> asUnion32<X>() => Union3.in2(this);
+  Union3<Never, Never, X> asUnion33<X>() => Union3.in3(this);
+  Union4<X, Never, Never, Never> asUnion41<X>() => Union4.in1(this);
+  Union4<Never, X, Never, Never> asUnion42<X>() => Union4.in2(this);
+  Union4<Never, Never, X, Never> asUnion43<X>() => Union4.in3(this);
+  Union4<Never, Never, Never, X> asUnion44<X>() => Union4.in4(this);
+  Union5<X, Never, Never, Never, Never> asUnion51<X>() => Union5.in1(this);
+  Union5<Never, X, Never, Never, Never> asUnion52<X>() => Union5.in2(this);
+  Union5<Never, Never, X, Never, Never> asUnion53<X>() => Union5.in3(this);
+  Union5<Never, Never, Never, X, Never> asUnion54<X>() => Union5.in4(this);
+  Union5<Never, Never, Never, Never, X> asUnion55<X>() => Union5.in5(this);
+  Union6<X, Never, Never, Never, Never, Never> asUnion61<X>() =>
+      Union6.in1(this);
+  Union6<Never, X, Never, Never, Never, Never> asUnion62<X>() =>
+      Union6.in2(this);
+  Union6<Never, Never, X, Never, Never, Never> asUnion63<X>() =>
+      Union6.in3(this);
+  Union6<Never, Never, Never, X, Never, Never> asUnion64<X>() =>
+      Union6.in4(this);
+  Union6<Never, Never, Never, Never, X, Never> asUnion65<X>() =>
+      Union6.in5(this);
+  Union6<Never, Never, Never, Never, Never, X> asUnion66<X>() =>
+      Union6.in6(this);
+  Union7<X, Never, Never, Never, Never, Never, Never> asUnion71<X>() =>
+      Union7.in1(this);
+  Union7<Never, X, Never, Never, Never, Never, Never> asUnion72<X>() =>
+      Union7.in2(this);
+  Union7<Never, Never, X, Never, Never, Never, Never> asUnion73<X>() =>
+      Union7.in3(this);
+  Union7<Never, Never, Never, X, Never, Never, Never> asUnion74<X>() =>
+      Union7.in4(this);
+  Union7<Never, Never, Never, Never, X, Never, Never> asUnion75<X>() =>
+      Union7.in5(this);
+  Union7<Never, Never, Never, Never, Never, X, Never> asUnion76<X>() =>
+      Union7.in6(this);
+  Union7<Never, Never, Never, Never, Never, Never, X> asUnion77<X>() =>
+      Union7.in7(this);
+  Union8<X, Never, Never, Never, Never, Never, Never, Never> asUnion81<X>() =>
+      Union8.in1(this);
+  Union8<Never, X, Never, Never, Never, Never, Never, Never> asUnion82<X>() =>
+      Union8.in2(this);
+  Union8<Never, Never, X, Never, Never, Never, Never, Never> asUnion83<X>() =>
+      Union8.in3(this);
+  Union8<Never, Never, Never, X, Never, Never, Never, Never> asUnion84<X>() =>
+      Union8.in4(this);
+  Union8<Never, Never, Never, Never, X, Never, Never, Never> asUnion85<X>() =>
+      Union8.in5(this);
+  Union8<Never, Never, Never, Never, Never, X, Never, Never> asUnion86<X>() =>
+      Union8.in6(this);
+  Union8<Never, Never, Never, Never, Never, Never, X, Never> asUnion87<X>() =>
+      Union8.in7(this);
+  Union8<Never, Never, Never, Never, Never, Never, Never, X> asUnion88<X>() =>
+      Union8.in8(this);
+  Union9<X, Never, Never, Never, Never, Never, Never, Never, Never>
+      asUnion91<X>() => Union9.in1(this);
+  Union9<Never, X, Never, Never, Never, Never, Never, Never, Never>
+      asUnion92<X>() => Union9.in2(this);
+  Union9<Never, Never, X, Never, Never, Never, Never, Never, Never>
+      asUnion93<X>() => Union9.in3(this);
+  Union9<Never, Never, Never, X, Never, Never, Never, Never, Never>
+      asUnion94<X>() => Union9.in4(this);
+  Union9<Never, Never, Never, Never, X, Never, Never, Never, Never>
+      asUnion95<X>() => Union9.in5(this);
+  Union9<Never, Never, Never, Never, Never, X, Never, Never, Never>
+      asUnion96<X>() => Union9.in6(this);
+  Union9<Never, Never, Never, Never, Never, Never, X, Never, Never>
+      asUnion97<X>() => Union9.in7(this);
+  Union9<Never, Never, Never, Never, Never, Never, Never, X, Never>
+      asUnion98<X>() => Union9.in8(this);
+  Union9<Never, Never, Never, Never, Never, Never, Never, Never, X>
+      asUnion99<X>() => Union9.in9(this);
 }

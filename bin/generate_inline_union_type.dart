@@ -119,38 +119,22 @@ String unionSource(int arity) {
   return source.toString();
 }
 
-String unionTypeWithY(int arity, int yIndex) {
+String unionTypeWithX(int arity, int xIndex) {
   var typeArgumentsSource = StringBuffer('');
   for (int i = 1; i <= arity; ++i) {
-    var typeVariable = i == yIndex ? 'Y' : 'X$i';
+    var typeVariable = i == xIndex ? 'X' : 'Never';
     typeArgumentsSource.write('$typeVariable${i < arity ? ', ' : ''}');
   }
   return 'Union$arity<$typeArgumentsSource>';
 }
 
-String typeParametersWithoutY(int arity, int yIndex) {
-  var typeParametersSource = StringBuffer('');
-  bool first = true;
-  for (int i = 1; i <= arity; ++i) {
-    if (i != yIndex) {
-      var commaSource = first ? '' : ', ';
-      first = false;
-      typeParametersSource.write('${commaSource}X$i');
-    }
-  }
-  return typeParametersSource.toString();
-}
-
 String extensionSource() {
-  var source = StringBuffer('extension UnionInjectExtension<Y> on Y {\n');
+  var source = StringBuffer('extension UnionInjectExtension<X> on X {\n');
   for (int arity = 2; arity <= maxArity; ++arity) {
-    for (int yIndex = 1; yIndex <= arity; ++yIndex) {
-      var typeSource = unionTypeWithY(arity, yIndex);
-      var typeParametersSource = typeParametersWithoutY(arity, yIndex);
-      source.write('  $typeSource asUnion$arity$yIndex'
-          '<$typeParametersSource>() => '
-          // Change `$typeSource` to `Union$arity` when inference works.
-          '$typeSource.in$yIndex(this);\n');
+    for (int xIndex = 1; xIndex <= arity; ++xIndex) {
+      var typeSource = unionTypeWithX(arity, xIndex);
+      source.write('  $typeSource asUnion$arity$xIndex<X>() => '
+          'Union$arity.in$xIndex(this);\n');
     }
   }
   source.write('}\n');
