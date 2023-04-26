@@ -25,8 +25,8 @@ void main() {
     expect(doSplit(Union2.in1(10)), 10);
     expect(doSplit(Union2.in2('10')), 2);
 
-    expect(doSplit(10.asUnion21, 10);
-    expect(doSplit('10'.asUnion22, 2);
+    expect(doSplit(10.asUnion21), 10);
+    expect(doSplit('10'.asUnion22), 2);
   });
   test('splitNamed', () {
     expect(doSplitNamed(Union2.in1(10)), 10);
@@ -34,9 +34,9 @@ void main() {
     expect(doSplitNamedOther(Union2.in1(10)), 42);
     expect(doSplitNamedInvalid(true as Union2<int, String>), -1);
 
-    expect(doSplitNamed(10.asUnion21, 10);
-    expect(doSplitNamed('10'.asUnion22, 2);
-    expect(doSplitNamedOther(10.asUnion21, 42);
+    expect(doSplitNamed(10.asUnion21), 10);
+    expect(doSplitNamed('10'.asUnion22), 2);
+    expect(doSplitNamedOther(10.asUnion21), 42);
     expect(doSplitNamedInvalid(true as Union2<int, String>), -1);
   });
 }

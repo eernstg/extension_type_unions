@@ -133,7 +133,7 @@ String extensionSource() {
   for (int arity = 2; arity <= maxArity; ++arity) {
     for (int xIndex = 1; xIndex <= arity; ++xIndex) {
       var typeSource = unionTypeWithX(arity, xIndex);
-      source.write('  $typeSource asUnion$arity$xIndex<X>() => '
+      source.write('  $typeSource get asUnion$arity$xIndex => '
           'Union$arity.in$xIndex(this);\n');
     }
   }

@@ -648,78 +648,78 @@ inline class Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9> {
 }
 
 extension UnionInjectExtension<X> on X {
-  Union2<X, Never> asUnion21<X>() => Union2.in1(this);
-  Union2<Never, X> asUnion22<X>() => Union2.in2(this);
-  Union3<X, Never, Never> asUnion31<X>() => Union3.in1(this);
-  Union3<Never, X, Never> asUnion32<X>() => Union3.in2(this);
-  Union3<Never, Never, X> asUnion33<X>() => Union3.in3(this);
-  Union4<X, Never, Never, Never> asUnion41<X>() => Union4.in1(this);
-  Union4<Never, X, Never, Never> asUnion42<X>() => Union4.in2(this);
-  Union4<Never, Never, X, Never> asUnion43<X>() => Union4.in3(this);
-  Union4<Never, Never, Never, X> asUnion44<X>() => Union4.in4(this);
-  Union5<X, Never, Never, Never, Never> asUnion51<X>() => Union5.in1(this);
-  Union5<Never, X, Never, Never, Never> asUnion52<X>() => Union5.in2(this);
-  Union5<Never, Never, X, Never, Never> asUnion53<X>() => Union5.in3(this);
-  Union5<Never, Never, Never, X, Never> asUnion54<X>() => Union5.in4(this);
-  Union5<Never, Never, Never, Never, X> asUnion55<X>() => Union5.in5(this);
-  Union6<X, Never, Never, Never, Never, Never> asUnion61<X>() =>
+  Union2<X, Never> get asUnion21 => Union2.in1(this);
+  Union2<Never, X> get asUnion22 => Union2.in2(this);
+  Union3<X, Never, Never> get asUnion31 => Union3.in1(this);
+  Union3<Never, X, Never> get asUnion32 => Union3.in2(this);
+  Union3<Never, Never, X> get asUnion33 => Union3.in3(this);
+  Union4<X, Never, Never, Never> get asUnion41 => Union4.in1(this);
+  Union4<Never, X, Never, Never> get asUnion42 => Union4.in2(this);
+  Union4<Never, Never, X, Never> get asUnion43 => Union4.in3(this);
+  Union4<Never, Never, Never, X> get asUnion44 => Union4.in4(this);
+  Union5<X, Never, Never, Never, Never> get asUnion51 => Union5.in1(this);
+  Union5<Never, X, Never, Never, Never> get asUnion52 => Union5.in2(this);
+  Union5<Never, Never, X, Never, Never> get asUnion53 => Union5.in3(this);
+  Union5<Never, Never, Never, X, Never> get asUnion54 => Union5.in4(this);
+  Union5<Never, Never, Never, Never, X> get asUnion55 => Union5.in5(this);
+  Union6<X, Never, Never, Never, Never, Never> get asUnion61 =>
       Union6.in1(this);
-  Union6<Never, X, Never, Never, Never, Never> asUnion62<X>() =>
+  Union6<Never, X, Never, Never, Never, Never> get asUnion62 =>
       Union6.in2(this);
-  Union6<Never, Never, X, Never, Never, Never> asUnion63<X>() =>
+  Union6<Never, Never, X, Never, Never, Never> get asUnion63 =>
       Union6.in3(this);
-  Union6<Never, Never, Never, X, Never, Never> asUnion64<X>() =>
+  Union6<Never, Never, Never, X, Never, Never> get asUnion64 =>
       Union6.in4(this);
-  Union6<Never, Never, Never, Never, X, Never> asUnion65<X>() =>
+  Union6<Never, Never, Never, Never, X, Never> get asUnion65 =>
       Union6.in5(this);
-  Union6<Never, Never, Never, Never, Never, X> asUnion66<X>() =>
+  Union6<Never, Never, Never, Never, Never, X> get asUnion66 =>
       Union6.in6(this);
-  Union7<X, Never, Never, Never, Never, Never, Never> asUnion71<X>() =>
+  Union7<X, Never, Never, Never, Never, Never, Never> get asUnion71 =>
       Union7.in1(this);
-  Union7<Never, X, Never, Never, Never, Never, Never> asUnion72<X>() =>
+  Union7<Never, X, Never, Never, Never, Never, Never> get asUnion72 =>
       Union7.in2(this);
-  Union7<Never, Never, X, Never, Never, Never, Never> asUnion73<X>() =>
+  Union7<Never, Never, X, Never, Never, Never, Never> get asUnion73 =>
       Union7.in3(this);
-  Union7<Never, Never, Never, X, Never, Never, Never> asUnion74<X>() =>
+  Union7<Never, Never, Never, X, Never, Never, Never> get asUnion74 =>
       Union7.in4(this);
-  Union7<Never, Never, Never, Never, X, Never, Never> asUnion75<X>() =>
+  Union7<Never, Never, Never, Never, X, Never, Never> get asUnion75 =>
       Union7.in5(this);
-  Union7<Never, Never, Never, Never, Never, X, Never> asUnion76<X>() =>
+  Union7<Never, Never, Never, Never, Never, X, Never> get asUnion76 =>
       Union7.in6(this);
-  Union7<Never, Never, Never, Never, Never, Never, X> asUnion77<X>() =>
+  Union7<Never, Never, Never, Never, Never, Never, X> get asUnion77 =>
       Union7.in7(this);
-  Union8<X, Never, Never, Never, Never, Never, Never, Never> asUnion81<X>() =>
+  Union8<X, Never, Never, Never, Never, Never, Never, Never> get asUnion81 =>
       Union8.in1(this);
-  Union8<Never, X, Never, Never, Never, Never, Never, Never> asUnion82<X>() =>
+  Union8<Never, X, Never, Never, Never, Never, Never, Never> get asUnion82 =>
       Union8.in2(this);
-  Union8<Never, Never, X, Never, Never, Never, Never, Never> asUnion83<X>() =>
+  Union8<Never, Never, X, Never, Never, Never, Never, Never> get asUnion83 =>
       Union8.in3(this);
-  Union8<Never, Never, Never, X, Never, Never, Never, Never> asUnion84<X>() =>
+  Union8<Never, Never, Never, X, Never, Never, Never, Never> get asUnion84 =>
       Union8.in4(this);
-  Union8<Never, Never, Never, Never, X, Never, Never, Never> asUnion85<X>() =>
+  Union8<Never, Never, Never, Never, X, Never, Never, Never> get asUnion85 =>
       Union8.in5(this);
-  Union8<Never, Never, Never, Never, Never, X, Never, Never> asUnion86<X>() =>
+  Union8<Never, Never, Never, Never, Never, X, Never, Never> get asUnion86 =>
       Union8.in6(this);
-  Union8<Never, Never, Never, Never, Never, Never, X, Never> asUnion87<X>() =>
+  Union8<Never, Never, Never, Never, Never, Never, X, Never> get asUnion87 =>
       Union8.in7(this);
-  Union8<Never, Never, Never, Never, Never, Never, Never, X> asUnion88<X>() =>
+  Union8<Never, Never, Never, Never, Never, Never, Never, X> get asUnion88 =>
       Union8.in8(this);
   Union9<X, Never, Never, Never, Never, Never, Never, Never, Never>
-      asUnion91<X>() => Union9.in1(this);
+      get asUnion91 => Union9.in1(this);
   Union9<Never, X, Never, Never, Never, Never, Never, Never, Never>
-      asUnion92<X>() => Union9.in2(this);
+      get asUnion92 => Union9.in2(this);
   Union9<Never, Never, X, Never, Never, Never, Never, Never, Never>
-      asUnion93<X>() => Union9.in3(this);
+      get asUnion93 => Union9.in3(this);
   Union9<Never, Never, Never, X, Never, Never, Never, Never, Never>
-      asUnion94<X>() => Union9.in4(this);
+      get asUnion94 => Union9.in4(this);
   Union9<Never, Never, Never, Never, X, Never, Never, Never, Never>
-      asUnion95<X>() => Union9.in5(this);
+      get asUnion95 => Union9.in5(this);
   Union9<Never, Never, Never, Never, Never, X, Never, Never, Never>
-      asUnion96<X>() => Union9.in6(this);
+      get asUnion96 => Union9.in6(this);
   Union9<Never, Never, Never, Never, Never, Never, X, Never, Never>
-      asUnion97<X>() => Union9.in7(this);
+      get asUnion97 => Union9.in7(this);
   Union9<Never, Never, Never, Never, Never, Never, Never, X, Never>
-      asUnion98<X>() => Union9.in8(this);
+      get asUnion98 => Union9.in8(this);
   Union9<Never, Never, Never, Never, Never, Never, Never, Never, X>
-      asUnion99<X>() => Union9.in9(this);
+      get asUnion99 => Union9.in9(this);
 }
