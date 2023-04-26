@@ -25,17 +25,19 @@ int? doSplitNamedInvalid(Union2<int, String> u) => u.splitNamed(
 
 void main() {
   // We can introduce union typed expressions by calling a constructor.
+  // The constructor `UnionN.inK` injects a value of the `K`th type argument
+  // to a union type `UnionN` with `N` type arguments. For example,
+  // `Union2<int, String>.in1` turns an `int` into an `int | String`.
   print(doSplit(Union2.in1(10))); // Prints '10'.
   print(doSplit(Union2.in2('10'))); // '2'.
 
-  // We can also use the extension getters `UnionNM` where `N` is the arity
-  // of the union (the number of operands) and `M` is the position of the type
+  // We can also use the extension getters `UnionNK` where `N` is the arity
+  // of the union (the number of operands) and `K` is the position of the type
   // argument describing the actual value. So, `asUnion21` for an `int` which
-  // gets the type `Union2<int, ...>`.
+  // gets the type `Union2<int, Never>` (which will work as a `Union2<int, S>`
+  // for any `S`).
   print(doSplit(10.asUnion21)); // '10'.
   print(doSplit('10'.asUnion22)); // '2'.
-
-  // Invocations using `splitNamed`.
   print(doSplitNamed(10.asUnion21)); // '10'.
   print(doSplitNamed('10'.asUnion22)); // '2'.
   print(doSplitNamedOther(10.asUnion21)); // '42'.
@@ -43,5 +45,9 @@ void main() {
   // We can't prevent the introduction of invalid union values, because it is
   // always possible to force the type by an explicit cast. This case can be
   // handled in a `splitNamed` invocation as shown in `doSplitNamedInvalid`.
-  print(doSplitNamedInvalid(true as Union2<int, String>)); // '-1'.
+  var u = true as Union2<int, String>;
+  print(doSplitNamedInvalid(u)); // '-1'.
+
+  // We can detect these cases, if we suspect that they will ever arise.
+  print(u.isValid); // 'false'.
 }
