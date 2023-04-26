@@ -51,7 +51,7 @@ String unionSource(int arity) {
 
   // Constructors.
   for (int i = 1; i <= arity; ++i) {
-    source.write('  Union$arity.from$i(X$i this.value);\n');
+    source.write('  Union$arity.in$i(X$i this.value);\n');
   }
 
   // Getter `isValid`.
@@ -150,7 +150,7 @@ String extensionSource() {
       source.write('  $typeSource asUnion$arity$yIndex'
           '<$typeParametersSource>() => '
           // Change `$typeSource` to `Union$arity` when inference works.
-          '$typeSource.from$yIndex(this);\n');
+          '$typeSource.in$yIndex(this);\n');
     }
   }
   source.write('}\n');

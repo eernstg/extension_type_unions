@@ -22,8 +22,8 @@ class InvalidUnionTypeException implements Exception {
 inline class Union2<X1, X2> {
   final Object? value;
 
-  Union2.from1(X1 this.value);
-  Union2.from2(X2 this.value);
+  Union2.in1(X1 this.value);
+  Union2.in2(X2 this.value);
 
   bool get isValid => value is X1 || value is X2;
 
@@ -66,9 +66,9 @@ inline class Union2<X1, X2> {
 inline class Union3<X1, X2, X3> {
   final Object? value;
 
-  Union3.from1(X1 this.value);
-  Union3.from2(X2 this.value);
-  Union3.from3(X3 this.value);
+  Union3.in1(X1 this.value);
+  Union3.in2(X2 this.value);
+  Union3.in3(X3 this.value);
 
   bool get isValid => value is X1 || value is X2 || value is X3;
 
@@ -121,10 +121,10 @@ inline class Union3<X1, X2, X3> {
 inline class Union4<X1, X2, X3, X4> {
   final Object? value;
 
-  Union4.from1(X1 this.value);
-  Union4.from2(X2 this.value);
-  Union4.from3(X3 this.value);
-  Union4.from4(X4 this.value);
+  Union4.in1(X1 this.value);
+  Union4.in2(X2 this.value);
+  Union4.in3(X3 this.value);
+  Union4.in4(X4 this.value);
 
   bool get isValid => value is X1 || value is X2 || value is X3 || value is X4;
 
@@ -184,11 +184,11 @@ inline class Union4<X1, X2, X3, X4> {
 inline class Union5<X1, X2, X3, X4, X5> {
   final Object? value;
 
-  Union5.from1(X1 this.value);
-  Union5.from2(X2 this.value);
-  Union5.from3(X3 this.value);
-  Union5.from4(X4 this.value);
-  Union5.from5(X5 this.value);
+  Union5.in1(X1 this.value);
+  Union5.in2(X2 this.value);
+  Union5.in3(X3 this.value);
+  Union5.in4(X4 this.value);
+  Union5.in5(X5 this.value);
 
   bool get isValid =>
       value is X1 || value is X2 || value is X3 || value is X4 || value is X5;
@@ -256,12 +256,12 @@ inline class Union5<X1, X2, X3, X4, X5> {
 inline class Union6<X1, X2, X3, X4, X5, X6> {
   final Object? value;
 
-  Union6.from1(X1 this.value);
-  Union6.from2(X2 this.value);
-  Union6.from3(X3 this.value);
-  Union6.from4(X4 this.value);
-  Union6.from5(X5 this.value);
-  Union6.from6(X6 this.value);
+  Union6.in1(X1 this.value);
+  Union6.in2(X2 this.value);
+  Union6.in3(X3 this.value);
+  Union6.in4(X4 this.value);
+  Union6.in5(X5 this.value);
+  Union6.in6(X6 this.value);
 
   bool get isValid =>
       value is X1 ||
@@ -341,13 +341,13 @@ inline class Union6<X1, X2, X3, X4, X5, X6> {
 inline class Union7<X1, X2, X3, X4, X5, X6, X7> {
   final Object? value;
 
-  Union7.from1(X1 this.value);
-  Union7.from2(X2 this.value);
-  Union7.from3(X3 this.value);
-  Union7.from4(X4 this.value);
-  Union7.from5(X5 this.value);
-  Union7.from6(X6 this.value);
-  Union7.from7(X7 this.value);
+  Union7.in1(X1 this.value);
+  Union7.in2(X2 this.value);
+  Union7.in3(X3 this.value);
+  Union7.in4(X4 this.value);
+  Union7.in5(X5 this.value);
+  Union7.in6(X6 this.value);
+  Union7.in7(X7 this.value);
 
   bool get isValid =>
       value is X1 ||
@@ -435,14 +435,14 @@ inline class Union7<X1, X2, X3, X4, X5, X6, X7> {
 inline class Union8<X1, X2, X3, X4, X5, X6, X7, X8> {
   final Object? value;
 
-  Union8.from1(X1 this.value);
-  Union8.from2(X2 this.value);
-  Union8.from3(X3 this.value);
-  Union8.from4(X4 this.value);
-  Union8.from5(X5 this.value);
-  Union8.from6(X6 this.value);
-  Union8.from7(X7 this.value);
-  Union8.from8(X8 this.value);
+  Union8.in1(X1 this.value);
+  Union8.in2(X2 this.value);
+  Union8.in3(X3 this.value);
+  Union8.in4(X4 this.value);
+  Union8.in5(X5 this.value);
+  Union8.in6(X6 this.value);
+  Union8.in7(X7 this.value);
+  Union8.in8(X8 this.value);
 
   bool get isValid =>
       value is X1 ||
@@ -538,15 +538,15 @@ inline class Union8<X1, X2, X3, X4, X5, X6, X7, X8> {
 inline class Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9> {
   final Object? value;
 
-  Union9.from1(X1 this.value);
-  Union9.from2(X2 this.value);
-  Union9.from3(X3 this.value);
-  Union9.from4(X4 this.value);
-  Union9.from5(X5 this.value);
-  Union9.from6(X6 this.value);
-  Union9.from7(X7 this.value);
-  Union9.from8(X8 this.value);
-  Union9.from9(X9 this.value);
+  Union9.in1(X1 this.value);
+  Union9.in2(X2 this.value);
+  Union9.in3(X3 this.value);
+  Union9.in4(X4 this.value);
+  Union9.in5(X5 this.value);
+  Union9.in6(X6 this.value);
+  Union9.in7(X7 this.value);
+  Union9.in8(X8 this.value);
+  Union9.in9(X9 this.value);
 
   bool get isValid =>
       value is X1 ||
@@ -648,104 +648,104 @@ inline class Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9> {
 }
 
 extension UnionInjectExtension<Y> on Y {
-  Union2<Y, X2> asUnion21<X2>() => Union2<Y, X2>.from1(this);
-  Union2<X1, Y> asUnion22<X1>() => Union2<X1, Y>.from2(this);
-  Union3<Y, X2, X3> asUnion31<X2, X3>() => Union3<Y, X2, X3>.from1(this);
-  Union3<X1, Y, X3> asUnion32<X1, X3>() => Union3<X1, Y, X3>.from2(this);
-  Union3<X1, X2, Y> asUnion33<X1, X2>() => Union3<X1, X2, Y>.from3(this);
+  Union2<Y, X2> asUnion21<X2>() => Union2<Y, X2>.in1(this);
+  Union2<X1, Y> asUnion22<X1>() => Union2<X1, Y>.in2(this);
+  Union3<Y, X2, X3> asUnion31<X2, X3>() => Union3<Y, X2, X3>.in1(this);
+  Union3<X1, Y, X3> asUnion32<X1, X3>() => Union3<X1, Y, X3>.in2(this);
+  Union3<X1, X2, Y> asUnion33<X1, X2>() => Union3<X1, X2, Y>.in3(this);
   Union4<Y, X2, X3, X4> asUnion41<X2, X3, X4>() =>
-      Union4<Y, X2, X3, X4>.from1(this);
+      Union4<Y, X2, X3, X4>.in1(this);
   Union4<X1, Y, X3, X4> asUnion42<X1, X3, X4>() =>
-      Union4<X1, Y, X3, X4>.from2(this);
+      Union4<X1, Y, X3, X4>.in2(this);
   Union4<X1, X2, Y, X4> asUnion43<X1, X2, X4>() =>
-      Union4<X1, X2, Y, X4>.from3(this);
+      Union4<X1, X2, Y, X4>.in3(this);
   Union4<X1, X2, X3, Y> asUnion44<X1, X2, X3>() =>
-      Union4<X1, X2, X3, Y>.from4(this);
+      Union4<X1, X2, X3, Y>.in4(this);
   Union5<Y, X2, X3, X4, X5> asUnion51<X2, X3, X4, X5>() =>
-      Union5<Y, X2, X3, X4, X5>.from1(this);
+      Union5<Y, X2, X3, X4, X5>.in1(this);
   Union5<X1, Y, X3, X4, X5> asUnion52<X1, X3, X4, X5>() =>
-      Union5<X1, Y, X3, X4, X5>.from2(this);
+      Union5<X1, Y, X3, X4, X5>.in2(this);
   Union5<X1, X2, Y, X4, X5> asUnion53<X1, X2, X4, X5>() =>
-      Union5<X1, X2, Y, X4, X5>.from3(this);
+      Union5<X1, X2, Y, X4, X5>.in3(this);
   Union5<X1, X2, X3, Y, X5> asUnion54<X1, X2, X3, X5>() =>
-      Union5<X1, X2, X3, Y, X5>.from4(this);
+      Union5<X1, X2, X3, Y, X5>.in4(this);
   Union5<X1, X2, X3, X4, Y> asUnion55<X1, X2, X3, X4>() =>
-      Union5<X1, X2, X3, X4, Y>.from5(this);
+      Union5<X1, X2, X3, X4, Y>.in5(this);
   Union6<Y, X2, X3, X4, X5, X6> asUnion61<X2, X3, X4, X5, X6>() =>
-      Union6<Y, X2, X3, X4, X5, X6>.from1(this);
+      Union6<Y, X2, X3, X4, X5, X6>.in1(this);
   Union6<X1, Y, X3, X4, X5, X6> asUnion62<X1, X3, X4, X5, X6>() =>
-      Union6<X1, Y, X3, X4, X5, X6>.from2(this);
+      Union6<X1, Y, X3, X4, X5, X6>.in2(this);
   Union6<X1, X2, Y, X4, X5, X6> asUnion63<X1, X2, X4, X5, X6>() =>
-      Union6<X1, X2, Y, X4, X5, X6>.from3(this);
+      Union6<X1, X2, Y, X4, X5, X6>.in3(this);
   Union6<X1, X2, X3, Y, X5, X6> asUnion64<X1, X2, X3, X5, X6>() =>
-      Union6<X1, X2, X3, Y, X5, X6>.from4(this);
+      Union6<X1, X2, X3, Y, X5, X6>.in4(this);
   Union6<X1, X2, X3, X4, Y, X6> asUnion65<X1, X2, X3, X4, X6>() =>
-      Union6<X1, X2, X3, X4, Y, X6>.from5(this);
+      Union6<X1, X2, X3, X4, Y, X6>.in5(this);
   Union6<X1, X2, X3, X4, X5, Y> asUnion66<X1, X2, X3, X4, X5>() =>
-      Union6<X1, X2, X3, X4, X5, Y>.from6(this);
+      Union6<X1, X2, X3, X4, X5, Y>.in6(this);
   Union7<Y, X2, X3, X4, X5, X6, X7> asUnion71<X2, X3, X4, X5, X6, X7>() =>
-      Union7<Y, X2, X3, X4, X5, X6, X7>.from1(this);
+      Union7<Y, X2, X3, X4, X5, X6, X7>.in1(this);
   Union7<X1, Y, X3, X4, X5, X6, X7> asUnion72<X1, X3, X4, X5, X6, X7>() =>
-      Union7<X1, Y, X3, X4, X5, X6, X7>.from2(this);
+      Union7<X1, Y, X3, X4, X5, X6, X7>.in2(this);
   Union7<X1, X2, Y, X4, X5, X6, X7> asUnion73<X1, X2, X4, X5, X6, X7>() =>
-      Union7<X1, X2, Y, X4, X5, X6, X7>.from3(this);
+      Union7<X1, X2, Y, X4, X5, X6, X7>.in3(this);
   Union7<X1, X2, X3, Y, X5, X6, X7> asUnion74<X1, X2, X3, X5, X6, X7>() =>
-      Union7<X1, X2, X3, Y, X5, X6, X7>.from4(this);
+      Union7<X1, X2, X3, Y, X5, X6, X7>.in4(this);
   Union7<X1, X2, X3, X4, Y, X6, X7> asUnion75<X1, X2, X3, X4, X6, X7>() =>
-      Union7<X1, X2, X3, X4, Y, X6, X7>.from5(this);
+      Union7<X1, X2, X3, X4, Y, X6, X7>.in5(this);
   Union7<X1, X2, X3, X4, X5, Y, X7> asUnion76<X1, X2, X3, X4, X5, X7>() =>
-      Union7<X1, X2, X3, X4, X5, Y, X7>.from6(this);
+      Union7<X1, X2, X3, X4, X5, Y, X7>.in6(this);
   Union7<X1, X2, X3, X4, X5, X6, Y> asUnion77<X1, X2, X3, X4, X5, X6>() =>
-      Union7<X1, X2, X3, X4, X5, X6, Y>.from7(this);
+      Union7<X1, X2, X3, X4, X5, X6, Y>.in7(this);
   Union8<Y, X2, X3, X4, X5, X6, X7, X8>
       asUnion81<X2, X3, X4, X5, X6, X7, X8>() =>
-          Union8<Y, X2, X3, X4, X5, X6, X7, X8>.from1(this);
+          Union8<Y, X2, X3, X4, X5, X6, X7, X8>.in1(this);
   Union8<X1, Y, X3, X4, X5, X6, X7, X8>
       asUnion82<X1, X3, X4, X5, X6, X7, X8>() =>
-          Union8<X1, Y, X3, X4, X5, X6, X7, X8>.from2(this);
+          Union8<X1, Y, X3, X4, X5, X6, X7, X8>.in2(this);
   Union8<X1, X2, Y, X4, X5, X6, X7, X8>
       asUnion83<X1, X2, X4, X5, X6, X7, X8>() =>
-          Union8<X1, X2, Y, X4, X5, X6, X7, X8>.from3(this);
+          Union8<X1, X2, Y, X4, X5, X6, X7, X8>.in3(this);
   Union8<X1, X2, X3, Y, X5, X6, X7, X8>
       asUnion84<X1, X2, X3, X5, X6, X7, X8>() =>
-          Union8<X1, X2, X3, Y, X5, X6, X7, X8>.from4(this);
+          Union8<X1, X2, X3, Y, X5, X6, X7, X8>.in4(this);
   Union8<X1, X2, X3, X4, Y, X6, X7, X8>
       asUnion85<X1, X2, X3, X4, X6, X7, X8>() =>
-          Union8<X1, X2, X3, X4, Y, X6, X7, X8>.from5(this);
+          Union8<X1, X2, X3, X4, Y, X6, X7, X8>.in5(this);
   Union8<X1, X2, X3, X4, X5, Y, X7, X8>
       asUnion86<X1, X2, X3, X4, X5, X7, X8>() =>
-          Union8<X1, X2, X3, X4, X5, Y, X7, X8>.from6(this);
+          Union8<X1, X2, X3, X4, X5, Y, X7, X8>.in6(this);
   Union8<X1, X2, X3, X4, X5, X6, Y, X8>
       asUnion87<X1, X2, X3, X4, X5, X6, X8>() =>
-          Union8<X1, X2, X3, X4, X5, X6, Y, X8>.from7(this);
+          Union8<X1, X2, X3, X4, X5, X6, Y, X8>.in7(this);
   Union8<X1, X2, X3, X4, X5, X6, X7, Y>
       asUnion88<X1, X2, X3, X4, X5, X6, X7>() =>
-          Union8<X1, X2, X3, X4, X5, X6, X7, Y>.from8(this);
+          Union8<X1, X2, X3, X4, X5, X6, X7, Y>.in8(this);
   Union9<Y, X2, X3, X4, X5, X6, X7, X8, X9>
       asUnion91<X2, X3, X4, X5, X6, X7, X8, X9>() =>
-          Union9<Y, X2, X3, X4, X5, X6, X7, X8, X9>.from1(this);
+          Union9<Y, X2, X3, X4, X5, X6, X7, X8, X9>.in1(this);
   Union9<X1, Y, X3, X4, X5, X6, X7, X8, X9>
       asUnion92<X1, X3, X4, X5, X6, X7, X8, X9>() =>
-          Union9<X1, Y, X3, X4, X5, X6, X7, X8, X9>.from2(this);
+          Union9<X1, Y, X3, X4, X5, X6, X7, X8, X9>.in2(this);
   Union9<X1, X2, Y, X4, X5, X6, X7, X8, X9>
       asUnion93<X1, X2, X4, X5, X6, X7, X8, X9>() =>
-          Union9<X1, X2, Y, X4, X5, X6, X7, X8, X9>.from3(this);
+          Union9<X1, X2, Y, X4, X5, X6, X7, X8, X9>.in3(this);
   Union9<X1, X2, X3, Y, X5, X6, X7, X8, X9>
       asUnion94<X1, X2, X3, X5, X6, X7, X8, X9>() =>
-          Union9<X1, X2, X3, Y, X5, X6, X7, X8, X9>.from4(this);
+          Union9<X1, X2, X3, Y, X5, X6, X7, X8, X9>.in4(this);
   Union9<X1, X2, X3, X4, Y, X6, X7, X8, X9>
       asUnion95<X1, X2, X3, X4, X6, X7, X8, X9>() =>
-          Union9<X1, X2, X3, X4, Y, X6, X7, X8, X9>.from5(this);
+          Union9<X1, X2, X3, X4, Y, X6, X7, X8, X9>.in5(this);
   Union9<X1, X2, X3, X4, X5, Y, X7, X8, X9>
       asUnion96<X1, X2, X3, X4, X5, X7, X8, X9>() =>
-          Union9<X1, X2, X3, X4, X5, Y, X7, X8, X9>.from6(this);
+          Union9<X1, X2, X3, X4, X5, Y, X7, X8, X9>.in6(this);
   Union9<X1, X2, X3, X4, X5, X6, Y, X8, X9>
       asUnion97<X1, X2, X3, X4, X5, X6, X8, X9>() =>
-          Union9<X1, X2, X3, X4, X5, X6, Y, X8, X9>.from7(this);
+          Union9<X1, X2, X3, X4, X5, X6, Y, X8, X9>.in7(this);
   Union9<X1, X2, X3, X4, X5, X6, X7, Y, X9>
       asUnion98<X1, X2, X3, X4, X5, X6, X7, X9>() =>
-          Union9<X1, X2, X3, X4, X5, X6, X7, Y, X9>.from8(this);
+          Union9<X1, X2, X3, X4, X5, X6, X7, Y, X9>.in8(this);
   Union9<X1, X2, X3, X4, X5, X6, X7, X8, Y>
       asUnion99<X1, X2, X3, X4, X5, X6, X7, X8>() =>
-          Union9<X1, X2, X3, X4, X5, X6, X7, X8, Y>.from9(this);
+          Union9<X1, X2, X3, X4, X5, X6, X7, X8, Y>.in9(this);
 }
