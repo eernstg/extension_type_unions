@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:inline_union_type/inline_json_type.dart';
+import 'package:extension_type_unions/extension_type_json.dart';
 
 abstract class JsonClassBase {
   String get typeAnnotation;

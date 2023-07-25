@@ -1,7 +1,7 @@
-name: inline_union_type
-description: Simple union types, expressed using inline classes.
+name: extension_type_unions
+description: Simple union types, expressed using extension types.
 version: 1.0.0
-# repository: https://github.com/eernstg/inline_union_type
+# repository: https://github.com/eernstg/extension_type_unions
 
 environment:
   sdk: '>=3.1.0-40.0.dev <4.0.0'
