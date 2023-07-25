@@ -47,7 +47,7 @@ String unionSource(int arity) {
   for (int i = 1; i < arity; ++i) {
     source.write('X$i, ');
   }
-  source.write('X$arity> {\n  final Object? value;\n\n');
+  source.write('X$arity>._(Object? value) {\n');
 
   // Constructors.
   for (int i = 1; i <= arity; ++i) {
@@ -111,7 +111,7 @@ String unionSource(int arity) {
   for (int i = 1; i <= arity; ++i) {
     source.write('    if (v is X$i) return (on$i ?? onOther)?.call(v);\n');
   }
-  source.write('    if (onInvalid != null) return onInvalid(v);');
+  source.write('    if (onInvalid != null) return onInvalid(v);\n');
   source.write('    throw InvalidUnionTypeException(\n');
   source.write('      "Union$arity<$typeArguments>",\n');
   source.write('      value,\n    );\n  }\n}\n');
