@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // This code generator will generate the contents of the library
-// '../lib/inline_union_type.dart', with non-standard formatting. Use it to
+// '../lib/extension_type_unions.dart', with non-standard formatting. Use it to
 // obtain a near-finished version of that library, and then run `dart format`
 // on the output in order to obtain a version which is ready to publish.
 //
@@ -43,7 +43,7 @@ String unionSource(int arity) {
   var source = StringBuffer('');
 
   // Class header.
-  source.write('inline class Union$arity<');
+  source.write('extension type Union$arity<');
   for (int i = 1; i < arity; ++i) {
     source.write('X$i, ');
   }
