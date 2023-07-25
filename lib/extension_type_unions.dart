@@ -19,9 +19,7 @@ class InvalidUnionTypeException implements Exception {
   String toString() => '$type: value has type ${value.runtimeType}';
 }
 
-inline class Union2<X1, X2> {
-  final Object? value;
-
+extension type Union2<X1, X2>._(Object? value) {
   Union2.in1(X1 this.value);
   Union2.in2(X2 this.value);
 
@@ -63,9 +61,7 @@ inline class Union2<X1, X2> {
   }
 }
 
-inline class Union3<X1, X2, X3> {
-  final Object? value;
-
+extension type Union3<X1, X2, X3>._(Object? value) {
   Union3.in1(X1 this.value);
   Union3.in2(X2 this.value);
   Union3.in3(X3 this.value);
@@ -118,9 +114,7 @@ inline class Union3<X1, X2, X3> {
   }
 }
 
-inline class Union4<X1, X2, X3, X4> {
-  final Object? value;
-
+extension type Union4<X1, X2, X3, X4>._(Object? value) {
   Union4.in1(X1 this.value);
   Union4.in2(X2 this.value);
   Union4.in3(X3 this.value);
@@ -181,9 +175,7 @@ inline class Union4<X1, X2, X3, X4> {
   }
 }
 
-inline class Union5<X1, X2, X3, X4, X5> {
-  final Object? value;
-
+extension type Union5<X1, X2, X3, X4, X5>._(Object? value) {
   Union5.in1(X1 this.value);
   Union5.in2(X2 this.value);
   Union5.in3(X3 this.value);
@@ -253,9 +245,7 @@ inline class Union5<X1, X2, X3, X4, X5> {
   }
 }
 
-inline class Union6<X1, X2, X3, X4, X5, X6> {
-  final Object? value;
-
+extension type Union6<X1, X2, X3, X4, X5, X6>._(Object? value) {
   Union6.in1(X1 this.value);
   Union6.in2(X2 this.value);
   Union6.in3(X3 this.value);
@@ -338,9 +328,7 @@ inline class Union6<X1, X2, X3, X4, X5, X6> {
   }
 }
 
-inline class Union7<X1, X2, X3, X4, X5, X6, X7> {
-  final Object? value;
-
+extension type Union7<X1, X2, X3, X4, X5, X6, X7>._(Object? value) {
   Union7.in1(X1 this.value);
   Union7.in2(X2 this.value);
   Union7.in3(X3 this.value);
@@ -432,9 +420,7 @@ inline class Union7<X1, X2, X3, X4, X5, X6, X7> {
   }
 }
 
-inline class Union8<X1, X2, X3, X4, X5, X6, X7, X8> {
-  final Object? value;
-
+extension type Union8<X1, X2, X3, X4, X5, X6, X7, X8>._(Object? value) {
   Union8.in1(X1 this.value);
   Union8.in2(X2 this.value);
   Union8.in3(X3 this.value);
@@ -535,9 +521,7 @@ inline class Union8<X1, X2, X3, X4, X5, X6, X7, X8> {
   }
 }
 
-inline class Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9> {
-  final Object? value;
-
+extension type Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9>._(Object? value) {
   Union9.in1(X1 this.value);
   Union9.in2(X2 this.value);
   Union9.in3(X3 this.value);
