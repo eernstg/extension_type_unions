@@ -11,7 +11,7 @@ import 'dart:convert';
 /// `List<Json>`, `Map<String, Json>` is an _invalid_ Json type value. This
 /// exception is used to report that such a value has been encountered.
 ///
-/// Note that `Json` is an inline type whose underlying representation type
+/// Note that `Json` is an extension type whose underlying representation type
 /// is `Object?`, and hence any `List<T>` where `T` is a top type will yield
 /// true when tested with `is List<Json>`. Similarly for maps: any map whose
 /// run-time type is `Map<String, T>` where `T` is a top type will yield
@@ -25,9 +25,7 @@ class InvalidJsonTypeException implements Exception {
   String toString() => 'Json: value has type ${value.runtimeType}';
 }
 
-inline class Json {
-  final Object? value;
-
+extension type Json._(Object? value) {
   Json(this.value) : assert(isDeepValid(value as Json));
   const Json.fromNull() : value = null;
   const Json.fromBool(bool this.value);
