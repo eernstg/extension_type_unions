@@ -12,8 +12,6 @@
 // is "meta-redundant"), and manual writing (or even editing) of the library
 // might easily give rise to accidental inconsistencies.
 
-import 'dart:io';
-
 const maxArity = 9;
 
 const frontMatter = """
