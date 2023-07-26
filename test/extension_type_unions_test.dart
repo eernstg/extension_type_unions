@@ -1,4 +1,4 @@
-import 'package:inline_union_type/inline_union_type.dart';
+import 'package:extension_type_unions/extension_type_unions.dart';
 import 'package:test/test.dart';
 
 int doSplit(Union2<int, String> u) => u.split(
