@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: annotate_overrides
+
 import 'package:extension_type_unions/extension_type_json.dart';
 
 abstract class JsonClassBase {
@@ -130,7 +132,6 @@ class JsonClassObject extends JsonClassBase {
         return false;
       } else if (otherType is JsonClassObject) {
         var otherTypeName = otherType.className;
-        if (otherTypeName == null) return false;
         if (type is! JsonClassObject) return false;
         var typeName = type.className;
         if (typeName != otherTypeName) return false;
@@ -288,7 +289,7 @@ class JsonClassCollector {
       for (var jsonClass in classes) {
         var size = jsonClass.fields.length;
         Set<JsonClassObject>? currentSet = classesBySize[size];
-        if (currentSet == null) currentSet = classesBySize[size] = {};
+        currentSet ??= classesBySize[size] = {};
         currentSet.add(jsonClass);
       }
 

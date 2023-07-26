@@ -4,7 +4,7 @@ version: 1.0.0
 # repository: https://github.com/eernstg/extension_type_unions
 
 environment:
-  sdk: '>=3.1.0-40.0.dev <4.0.0'
+  sdk: '^3.2.0-edge' # '^3.1.0-333.0.dev'
 
 # Add regular dependencies here.
 dependencies:
