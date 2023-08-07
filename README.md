@@ -1,14 +1,14 @@
 <!--
-[![Build Status](https://github.com/eernstg/inline_union_types/workflows/Dart%20CI/badge.svg)](https://github.com/lrhn/charcode/actions?query=workflow%3A"Dart+CI")
-[![Pub](https://img.shields.io/pub/v/unline_union_type.svg)](https://pub.dev/packages/inline_union_type)
-[![package publisher](https://img.shields.io/pub/publisher/inline_union_type.svg)](https://pub.dev/packages/inline_union_type/publisher)
+[![Build Status](https://github.com/eernstg/extension_type_unions/workflows/Dart%20CI/badge.svg)](https://github.com/lrhn/charcode/actions?query=workflow%3A"Dart+CI")
+[![Pub](https://img.shields.io/pub/v/unline_union_type.svg)](https://pub.dev/packages/extension_type_unions)
+[![package publisher](https://img.shields.io/pub/publisher/extension_type_unions.svg)](https://pub.dev/packages/extension_type_unions/publisher)
 -->
 
 # Under Construction
 
-Inline classes is an upcoming feature, still experimental, and it may change over time. This repository uses inline classes to emulate union types, and hence it is also inherently experimental. Use `--enable-experiment=inline-class` in commands in order to enable inline classes.
+Extension types is an upcoming feature, still experimental, and it may change over time. This repository uses extension types to emulate union types, and hence it is also inherently experimental. Use `--enable-experiment=inline-class` in commands in order to enable the extension type feature.
 
-# Inline Union Types
+# Extension Type Unions
 
 Support for union types in Dart has been requested at least [since 2012](https://github.com/dart-lang/language/issues/1222). This repository provides a very basic level of support for union types in Dart.
 
@@ -26,12 +26,14 @@ Those properties would certainly be supported by an actual language mechanism, b
 
 ## Concrete syntax and example
 
-Now please forget about the nice, conceptual notation `T1 | T2`. The actual notation for that union type with this package is `Union2<T1, T2>`. There is a generic inline class for each arity up to 9, that is `Union2, Union3, ... Union9`.
+Now please forget about the nice, conceptual notation `T1 | T2`. The actual
+notation for that union type with this package is `Union2<T1, T2>`. There is a
+generic extension type for each arity up to 9, that is `Union2, Union3, ... Union9`.
 
 Here is an example showing how it can be used:
 
 ```dart
-import 'package:inline_union_type/inline_union_type.dart';
+import 'package:extension_type_unions/extension_type_unions.dart';
 
 int f(Union2<int, String> x) {
   return x.split(
@@ -63,9 +65,9 @@ int g(Union2<int, String> x) {
 
 This will run faster (because we avoid creating and calling function objects), but there is no static type check on the cases: `x.value` has the type `Object?`, and there is no notification (error or warning) if we test for the wrong set of types (say, if we're testing for a `double` and for a `String`, and forget all about `int`).
 
-## Inline class implications
+## Extension Type implications
 
-This package uses inline classes in order to implement support for union types. There are a few important consequences of this choice, as described below.
+This package uses extension types in order to implement support for union types. There are a few important consequences of this choice, as described below.
 
 First, there is no run-time cost associated with the use of these union types, compared to the situation where we use a much more general type (say, `dynamic`) and then pass actual arguments of type, say, `int` or `String`. Applied to the example from the previous section, we would get the following variant:
 
@@ -77,11 +79,11 @@ int h(dynamic x) {
 }
 ```
 
-The approach that uses inline classes is useful because (1) `f` is just as cheap as `h`, and (2) `f` gives rise to static type checks: It is an error to pass an actual argument to `f` which is not an `int` or a `String` (suitably wrapped up as a `Union2`).
+The approach that uses extension types is useful because (1) `f` is just as cheap as `h`, and (2) `f` gives rise to static type checks: It is an error to pass an actual argument to `f` which is not an `int` or a `String` (suitably wrapped up as a `Union2`).
 
 The static type checks are strict, as usual, in that it is a compile-time error to pass, say, an argument of type `Union2<double, String>` to `f`. This means that we do keep track of the fact that `f` is intended to work on an `int` or on a `String`, and not on any other kind of object.
 
-However, it is always possible to violate the encapsulation of an inline class by applying a type cast to it. This is the basic trade-off which is inherently a property of inline classes: There is no wrapper object, we're just using the underlying representation object directly, and the inline type as such is erased and does not exist at run time (it is replaced by the type of its field). Here is an example where we obtain an invalid value of type `Union2<int, String>`:
+However, it is always possible to violate the encapsulation of an extension type by applying a type cast to it. This is the basic trade-off which is inherently a property of extension types: There is no wrapper object, we're just using the underlying representation object directly, and the extension type as such is erased and does not exist at run time (it is replaced by the type of its field). Here is an example where we obtain an invalid value of type `Union2<int, String>`:
 
 ```dart
 void main() {
@@ -95,20 +97,20 @@ void main() {
 }
 ```
 
-This illustrates that a cast (`as`) to an inline class is possible (it succeeds at run time because the actual object is a `bool`, and the type of the `value` of the inline class is `Object?`). In other words, we can easily obtain an expression of type `Union2<int, String>` whose value isn't any of those two types.
+This illustrates that a cast (`as`) to an extension type is possible (it succeeds at run time because the actual object is a `bool`, and the type of the `value` of the extension type is `Object?`). In other words, we can easily obtain an expression of type `Union2<int, String>` whose value isn't any of those two types.
 
-However, the point is that this will only happen if the code uses a type cast, and for an organization or developer who is using 'inline_union_type' to detect type mismatches, it shouldn't be too difficult to simply avoid having any such casts.
+However, the point is that this will only happen if the code uses a type cast, and for an organization or developer who is using 'extension_type_unions' to detect type mismatches, it shouldn't be too difficult to simply avoid having any such casts.
 
-An alternative approach would be to use a regular class (rather than an inline class) to model each union type. The code would be identical, except that the word `inline` would be deleted from the declaration of each class `Union1 .. Union9`. If we had done that then the use of union types would be considerably more expensive at run time, because every union type would be reified as an actual wrapper object.
+An alternative approach would be to use a regular class (rather than an extension type) to model each union type. The code would be identical, except that the words `extension type` would be replaced by `class` in the declaration of each class `Union1 .. Union9`. If we had done that then the use of union types would be considerably more expensive at run time, because every union type would be reified as an actual wrapper object.
 
-On the other hand, we would have firm guarantees (no instance of a class `C` can be obtained without running a generative constructor of `C`, and the constructors of the `Union...` classes _do_ check that the given `value` has the required type), i.e., there would never exist an invalid union value. On the other hand, it would be a performance cost (time and space), and the assumption behind this package is that the trade-off associated with the use of inline classes is more useful in practice.
+On the other hand, we would have firm guarantees (no instance of a class `C` can be obtained without running a generative constructor of `C`, and the constructors of the `Union...` classes _do_ check that the given `value` has the required type), i.e., there would never exist an invalid union value. On the other hand, it would be a performance cost (time and space), and the assumption behind this package is that the trade-off associated with the use of extension types is more useful in practice.
 
 ## Future extensions
 
 If Dart adds support for implicit constructors then we would be able to avoid the unwieldy syntax at sites where a given expression needs to get a union type:
 
 ```dart
-import 'package:inline_union_type/inline_union_type.dart';
+import 'package:extension_type_unions/extension_type_unions.dart';
 
 int f(Union2<int, String> x) {
   return x.split(
