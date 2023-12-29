@@ -295,7 +295,7 @@ class JsonClassCollector {
 
       Map<JsonClassObject, JsonClassObject> willCollapse = {};
       for (var entry in classesBySize.entries) {
-        var size = entry.key;
+        // TODO(eernstg): Use `entry.key`.
         var currentClasses = entry.value.toList();
         var currentClassesSize = currentClasses.length;
         for (var index = 0; index < currentClassesSize; ++index) {
