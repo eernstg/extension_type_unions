@@ -1,4 +1,4 @@
-import 'package:inline_union_type/inline_union_type.dart';
+import 'package:extension_type_unions/extension_type_unions.dart';
 
 // Use `split` to discriminate: Receive a callback for every case, in order.
 
