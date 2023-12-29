@@ -411,8 +411,6 @@ class JsonClassCollector {
           } else if (types.length == 2) {
             if (types.contains(int) && types.contains(double)) {
               var jsonClassType = JsonClassNum();
-              var jsonTypeWithNullability =
-                  isNullable ? JsonClassNullable(jsonClassType) : jsonClassType;
               return jsonClassType;
             }
           }

@@ -2,23 +2,23 @@ import 'package:extension_type_unions/extension_type_unions.dart';
 import 'package:test/test.dart';
 
 int doSplit(Union2<int, String> u) => u.split(
-  (i) => i,
-  (s) => s.length,
-);
+      (i) => i,
+      (s) => s.length,
+    );
 
 int? doSplitNamed(Union2<int, String> u) => u.splitNamed(
-  on1: (i) => i,
-  on2: (s) => s.length,
-);
+      on1: (i) => i,
+      on2: (s) => s.length,
+    );
 
 int? doSplitNamedOther(Union2<int, String> u) => u.splitNamed(
-  on2: (s) => s.length,
-  onOther: (_) => 42,
-);
+      on2: (s) => s.length,
+      onOther: (_) => 42,
+    );
 
 int? doSplitNamedInvalid(Union2<int, String> u) => u.splitNamed(
-  onInvalid: (_) => -1,
-);
+      onInvalid: (_) => -1,
+    );
 
 void main() {
   test('split', () {
