@@ -31,22 +31,22 @@ void main() {
   print(doSplit(Union2.in1(10))); // Prints '10'.
   print(doSplit(Union2.in2('ab'))); // '2'.
 
-  // We can also use the extension getters `asUnionNK` where `N` is the arity
+  // We can also use the extension getters `uNK` where `N` is the arity
   // of the union (the number of operands) and `K` is the position of the type
-  // argument describing the actual value. So `asUnion21` on an `int` returns a
+  // argument describing the actual value. So `u21` on an `int` returns a
   // result of type `Union2<int, Never>` (which will work as a `Union2<int, S>`
   // for any `S`).
-  print(doSplit(10.asUnion21)); // '10'.
-  print(doSplit('ab'.asUnion22)); // '2'.
-  print(doSplitNamed(10.asUnion21)); // '10'.
-  print(doSplitNamed('ab'.asUnion22)); // '2'.
-  print(doSplitNamedOther(10.asUnion21)); // '42'.
+  print(doSplit(10.u21)); // '10'.
+  print(doSplit('ab'.u22)); // '2'.
+  print(doSplitNamed(10.u21)); // '10'.
+  print(doSplitNamed('ab'.u22)); // '2'.
+  print(doSplitNamedOther(10.u21)); // '42'.
 
   // It is a compile-time error to create a union typed value with wrong types.
   // Union2<int, String> u1 = Union2.in1(true); // Error.
   // Union2<int, String> u2 = Union2.in2(true); // Error.
-  // Union2<int, String> u3 = true.asUnion21; // Error.
-  // Union2<int, String> u4 = true.asUnion22; // Error.
+  // Union2<int, String> u3 = true.u21; // Error.
+  // Union2<int, String> u4 = true.u22; // Error.
 
   // However, we can't prevent the introduction of invalid union values,
   // because it is always possible to force the type by an explicit cast. This
