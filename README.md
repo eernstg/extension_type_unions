@@ -4,13 +4,9 @@
 [![package publisher](https://img.shields.io/pub/publisher/extension_type_unions.svg)](https://pub.dev/packages/extension_type_unions/publisher)
 -->
 
-# Under Construction
-
-Extension types is an upcoming feature, still experimental, and it may change over time. This repository uses extension types to emulate union types, and hence it is also inherently experimental. Use `--enable-experiment=inline-class` in commands in order to enable the extension type feature.
-
 # Extension Type Unions
 
-Support for union types in Dart has been requested at least [since 2012](https://github.com/dart-lang/language/issues/1222). This repository provides a very basic level of support for union types in Dart.
+Support for union types in Dart has been requested at least [since 2012](https://github.com/dart-lang/language/issues/1222). This repository provides a basic level of support for union types in Dart.
 
 ## Union Types, and the kind offered here
 
@@ -26,9 +22,7 @@ Those properties would certainly be supported by an actual language mechanism, b
 
 ## Concrete syntax and example
 
-Now please forget about the nice, conceptual notation `T1 | T2`. The actual
-notation for that union type with this package is `Union2<T1, T2>`. There is a
-generic extension type for each arity up to 9, that is `Union2, Union3, ... Union9`.
+Now please forget about the nice, conceptual notation `T1 | T2`. The actual notation for that union type with this package is `Union2<T1, T2>`. There is a generic extension type for each arity up to 9, that is `Union2, Union3, ... Union9`.
 
 Here is an example showing how it can be used:
 
@@ -79,9 +73,11 @@ int h(dynamic x) {
 }
 ```
 
-The approach that uses extension types is useful because (1) `f` is just as cheap as `h`, and (2) `f` gives rise to static type checks: It is an error to pass an actual argument to `f` which is not an `int` or a `String` (suitably wrapped up as a `Union2`).
+The approach that uses extension types is useful because (1) `g` is just as cheap as `h`, and (2) `g` gives rise to static type checks: It is an error to pass an actual argument to `g` which is not an `int` or a `String` (suitably wrapped up as a `Union2`).
 
-The static type checks are strict, as usual, in that it is a compile-time error to pass, say, an argument of type `Union2<double, String>` to `f`. This means that we do keep track of the fact that `f` is intended to work on an `int` or on a `String`, and not on any other kind of object.
+(As mentioned, `f` is more expensive than `g` and `h` because it includes the creation and invocation of function literals. However, `f` has better type safety and, arguably, better readability.)
+
+The static type checks are strict, as usual, in that it is a compile-time error to pass, say, an argument of type `Union2<double, String>` to `f` or `g`. This means that we do keep track of the fact that `f` is intended to work on an `int` or on a `String`, and not on any other kind of object.
 
 However, it is always possible to violate the encapsulation of an extension type by applying a type cast to it. This is the basic trade-off which is inherently a property of extension types: There is no wrapper object, we're just using the underlying representation object directly, and the extension type as such is erased and does not exist at run time (it is replaced by the type of its field). Here is an example where we obtain an invalid value of type `Union2<int, String>`:
 
@@ -101,13 +97,17 @@ This illustrates that a cast (`as`) to an extension type is possible (it succeed
 
 However, the point is that this will only happen if the code uses a type cast, and for an organization or developer who is using 'extension_type_unions' to detect type mismatches, it shouldn't be too difficult to simply avoid having any such casts.
 
-An alternative approach would be to use a regular class (rather than an extension type) to model each union type. The code would be identical, except that the words `extension type` would be replaced by `class` in the declaration of each class `Union1 .. Union9`. If we had done that then the use of union types would be considerably more expensive at run time, because every union type would be reified as an actual wrapper object.
+Moreover, the extension type feature will be supported by a lint which will report the locations where such casts occur.
+
+An alternative approach would be to use a regular class (rather than an extension type) to model each union type. The code would be identical, except that the words `extension type` would be replaced by `class` in the declaration of each class `Union1 .. Union9`, and the constructor would have to be specified in the more verbose syntax which is used for class constructors today. If we had done that then the use of union types would be considerably more expensive at run time, because every union type would be reified as an actual wrapper object.
 
 On the other hand, we would have firm guarantees (no instance of a class `C` can be obtained without running a generative constructor of `C`, and the constructors of the `Union...` classes _do_ check that the given `value` has the required type), i.e., there would never exist an invalid union value. On the other hand, it would be a performance cost (time and space), and the assumption behind this package is that the trade-off associated with the use of extension types is more useful in practice.
 
 ## Future extensions
 
-If Dart adds support for implicit constructors then we would be able to avoid the unwieldy syntax at sites where a given expression needs to get a union type:
+If Dart adds support for [implicit constructors][] then we will be able to avoid the unwieldy syntax at sites where a given expression needs to get a union type:
+
+[implicit constructors]: https://github.com/dart-lang/language/blob/main/working/0107%20-%20implicit-constructors/feature-specification.md
 
 ```dart
 import 'package:extension_type_unions/extension_type_unions.dart';
