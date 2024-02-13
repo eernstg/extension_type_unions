@@ -46,7 +46,7 @@ This example illustrates that this kind of union type can be used to declare tha
 
 The method `split` is used to handle the different cases (when the value of `x` is actually an `int` respectively a `String`). It is safe in the sense that it accepts actual arguments for the operands of the union type; that is, the first argument is a function (a callback) that receives an argument of type `int`, and the second argument is a function that receives an argument of type `String`, and `split` is going to call the one that fits the actual `value`.
 
-The extension getters `u21` and `u22` invoke the corresponding extension type constructors. For example, `1.u21` is the same thing as `Union2<int, String>.in1(1)`, which may again be understood conceptually as "turn `1` into a value of type `int | String`, using the first type in the union". The actual type arguments `int` and `String` are obtained from the context, which allows us to use the concaise notation `.u21`.
+The extension getters `u21` and `u22` invoke the corresponding extension type constructors. For example, `1.u21` is the same thing as `Union2<int, String>.in1(1)`, which may again be understood conceptually as "turn `1` into a value of type `int | String`, using the first type in the union". The actual type arguments `int` and `String` are obtained from the context, which allows us to use the concise notation `1.u21`.
 
 An alternative approach would be to use a plain type test:
 
