@@ -37,8 +37,8 @@ int f(Union2<int, String> x) {
 }
 
 void main() {
-  print(f(1.asUnion21)); // '2'.
-  print(f('Hello'.asUnion22)); // '5'.
+  print(f(1.u21)); // '2'.
+  print(f('Hello'.u22)); // '5'.
 }
 ```
 
