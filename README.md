@@ -105,6 +105,11 @@ An alternative approach would be to use a regular class (rather than an extensio
 
 On the other hand, we would have firm guarantees (no instance of a class `C` can be obtained without running a generative constructor of `C`, and the constructors of the `Union...` classes _do_ check that the given `value` has the required type), i.e., there would never exist an invalid union value. On the other hand, it would be a performance cost (time and space), and the assumption behind this package is that the trade-off associated with the use of extension types is more useful in practice.
 
+## The type Json
+
+
+
+
 ## Future extensions
 
 If Dart adds support for [implicit constructors][] then we will be able to avoid the unwieldy syntax at sites where a given expression needs to get a union type:
