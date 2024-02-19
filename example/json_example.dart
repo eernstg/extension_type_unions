@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
-import 'package:extension_type_union/extension_type_json.dart';
+import 'package:extension_type_unions/extension_type_json.dart';
 
 // Standard example from documentation of `jsonDecode`.
 
@@ -15,21 +15,23 @@ const jsonArray = '''
    {"text": "bar", "value": 2, "status": false}]
 ''';
 
-void main() {
-  final data = jsonDecode(jsonString);
-  final List<dynamic> dataList = jsonDecode(jsonArray);
-
-  var json = Json.fromSource(jsonString);
+// Accepts a `Json` value which is a map whose values are atomic.
+void handleSimpleJsonMap(Json json) {
   json.splitNamed(
     onMap: (m) {
       print('{');
       for (var key in m.keys) {
-        var jsonValue = Json(m[key]);
+        // `m[key]` can be null because `key` may be mapped to the value null.
+        // So if we encounter null then we insist that it is a `Json.fromNull`.
+        // This ensures that `jsonValue` gets the type `Json`, as desired,
+        // not `Json?`, as `operator []` would have it.
+        var jsonValue = m[key] ?? Json.fromNull();
         var str = jsonValue.splitNamed(
           onString: (s) => '"$s" of type String',
           onInt: (i) => '$i of type int',
           onBool: (b) => '$b of type bool',
           onNull: () => 'null of type Null',
+          onOther: (o) => throw "Composite values not expected here",
         );
         print('  "$key": $str');
       }
@@ -37,4 +39,14 @@ void main() {
     },
     onOther: (_) => print('Error: Did not get a map!'),
   );
+}
+
+void main() {
+  print('--- jsonString');
+  handleSimpleJsonMap(Json.fromSource(jsonString));
+
+  print('--- jsonArray');
+  for (var json in Json.fromSource(jsonArray).asList) {
+    handleSimpleJsonMap(json);
+  }
 }
