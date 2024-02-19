@@ -1,14 +1,14 @@
 name: extension_type_unions
-description: 
+description:
   Simple union types. The package provides the extension types
   `Union2 ... Union9`, modeling a simple kind of union types. The union
   of `int` and `String` can be specified as `Union2<int, String>`.
-  An expression with a union type type can be obtained by calling a
+  An expression with a union type can be obtained by calling a
   constructor like `Union2<int, String>.in1(42)` or
   `Union2<int, String>.in2('foo')`. A more concise form uses an
   extension getter, e.g., `42.u21`, `'foo'.u22` (`u2` means `Union2`,
   and the last digit specifies the chosen type, e.g., `1` for `int`).
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/eernstg/extension_type_unions
 
 environment:
