@@ -1,10 +1,10 @@
 name: extension_type_unions
 description: Simple union types, expressed using extension types.
-version: 1.0.2
+version: 1.0.0
 # repository: https://github.com/eernstg/extension_type_unions
 
 environment:
-  sdk: '3.3.0-197.0.dev'
+  sdk: '3.3.0'
 
 dev_dependencies:
   lints: ^3.0.0
