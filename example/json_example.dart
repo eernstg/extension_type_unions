@@ -1,5 +1,9 @@
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:convert';
-import 'package:inline_union_type/inline_json_type.dart';
+import 'package:extension_type_union/extension_type_json.dart';
 
 // Standard example from documentation of `jsonDecode`.
 
@@ -13,22 +17,7 @@ const jsonArray = '''
 
 void main() {
   final data = jsonDecode(jsonString);
-  print(data['text']); // foo
-  print(data['value']); // 1
-  print(data['status']); // false
-  print(data['extra']); // null
-
   final List<dynamic> dataList = jsonDecode(jsonArray);
-  print(dataList[0]); // {text: foo, value: 1, status: true}
-  print(dataList[1]); // {text: bar, value: 2, status: false}
-
-  final item = dataList[0];
-  print(item['text']); // foo
-  print(item['value']); // 1
-  print(item['status']); // false
-
-  // Trying out my stuff.
-  print('\nInline stuff:');
 
   var json = Json.fromSource(jsonString);
   json.splitNamed(
