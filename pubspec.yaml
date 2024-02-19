@@ -1,6 +1,19 @@
 name: extension_type_unions
 description: Simple union types, expressed using extension types.
-version: 1.0.0
+  This package provides extension types `Union2`, `Union3`, ... up to
+  `Union9`, modeling a simple kind of union types. E.g., a union type that
+  includes `int` and `String` can be specified as `Union2<int, String>`.
+  A value can be understood as having a union type by calling a constructor,
+  e.g., `Union2<int, String>.in1(42)` or `Union2<int, String>.in2('foo')`.
+  A more concise form uses an extension getter `42.u21`, `'foo'.u22`. The
+  first digit is the number of types that we're taking the union of, and
+  the second digit is the number of the chosen type (so `u21` is a `Union2`,
+  and the receiver `42` has the _first_ of the two types that we're taking the
+  union of; similarly, `'foo'` has the _second_ of the two types). The point
+  is that `Union2<int, String> x = [];` is a compile-time error because
+  `List<...>` isn't a subtype of `int` nor a subtype of `String`, which makes
+  the union type more precise than a plain `Object` or `dynamic`.
+version: 1.0.1
 repository: https://github.com/eernstg/extension_type_unions
 
 environment:
