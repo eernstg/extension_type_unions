@@ -123,10 +123,6 @@ We could of course say that `Json` is just a plain union with operands `Null`, `
 
 It is not hard to express the recursive nature of these object graphs in terms of member signatures: We just make sure that a value of type `Json` is typed as a `Map<String, Json>` in the case where it is a map, and so on. This doesn't rely on any special type system magic. It just requires that each recursive type is supported by a corresponding extension type, because `Union6` won't suffice.
 
-
-
-
-
 ## Future extensions
 
 If Dart adds support for [implicit constructors][] then we will be able to avoid the unwieldy syntax at sites where a given expression needs to get a union type:
