@@ -37,7 +37,7 @@ void handleSimpleJsonMap(Json json) {
       }
       print('}\n');
     },
-    onOther: (_) => print('Error: Did not get a map!'),
+    onOther: (_) => throw 'Error: Expected a map, got $json!',
   );
 }
 
