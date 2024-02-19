@@ -1,7 +1,7 @@
 name: extension_type_unions
 description: Simple union types, expressed using extension types.
 version: 1.0.0
-# repository: https://github.com/eernstg/extension_type_unions
+repository: https://github.com/eernstg/extension_type_unions
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
