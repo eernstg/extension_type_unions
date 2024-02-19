@@ -51,15 +51,14 @@ The extension getters `u21` and `u22` invoke the corresponding extension type co
 An alternative approach would be to use a plain type test:
 
 ```dart
-int g(Union2<int, String> x) {
-  var v = x.value;
-  if (v is int) return v + 1;
-  if (v is String) return v.length;
-  throw "Unexpected type";
-}
+int g(Union2<int, String> x) => switch (x.value) {
+      int i => i + 1,
+      String s => s.length,
+      _ => throw "Unexpected type",
+    };
 ```
 
-This will run faster (because we avoid creating and calling function objects), but there is no static type check on the cases: `x.value` has the type `Object?`, and there is no notification (error or warning) if we test for the wrong set of types (say, if we're testing for a `double` and for a `String`, and forget all about `int`).
+This will run just fine, but there is no static type check on the cases: `x.value` has the type `Object?`, and there is no notification (error or warning) if we test for the wrong set of types (say, if we're testing for a `double` and for a `String`, and forget all about `int`).
 
 ## Extension Type implications
 
@@ -107,7 +106,7 @@ On the other hand, we would have firm guarantees (no instance of a class `C` can
 
 ## The type Json
 
-
+!!!TODO!!!
 
 
 ## Future extensions
