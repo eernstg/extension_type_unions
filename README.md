@@ -29,12 +29,10 @@ Here is an example showing how it can be used:
 ```dart
 import 'package:extension_type_unions/extension_type_unions.dart';
 
-int f(Union2<int, String> x) {
-  return x.split(
-    (i) => i + 1,
-    (s) => s.length,
-  );
-}
+int f(Union2<int, String> x) => x.split(
+      (i) => i + 1,
+      (s) => s.length,
+    );
 
 void main() {
   print(f(1.u21)); // '2'.
@@ -76,7 +74,7 @@ int h(dynamic x) {
 
 The approach that uses extension types is useful because (1) `g` is just as cheap as `h`, and (2) `g` gives rise to static type checks: It is an error to pass an actual argument to `g` which is not an `int` or a `String` (suitably wrapped up as a `Union2`).
 
-(As mentioned, `f` is more expensive than `g` and `h` because it includes the creation and invocation of function literals. However, `f` has better type safety and, arguably, better readability.)
+(`f` is probably slightly more expensive than `g` and `h` because it includes the creation and invocation of function literals. However, `f` has better type safety and, arguably, better readability.)
 
 The static type checks are strict, as usual, in that it is a compile-time error to pass, say, an argument of type `Union2<double, String>` to `f` or `g`. This means that we do keep track of the fact that `f` is intended to work on an `int` or on a `String`, and not on any other kind of object.
 
@@ -106,7 +104,27 @@ On the other hand, we would have firm guarantees (no instance of a class `C` can
 
 ## The type Json
 
-!!!TODO!!!
+This package includes an extension type named `Json` which is used to support an approach which is typically used when a JSON term is parsed and modeled as an object structure that consists of lists, maps, and certain primitive values.
+
+This could be modeled as a recursive union type, but not as a plain union type. For example, a `Json` typed value could be a `List<Json>` that contains elements of type `Json` which could in turn be `List<Json>`, and so on. This implies that we cannot describe `Json` as a simple union of "other" types.
+
+```dart
+// Assuming that Dart supports recursive typedefs (but it doesn't).
+rec typedef Json = 
+    Null
+  | bool
+  | int
+  | double
+  | List<Json>
+  | Map<String, Json>;
+```
+
+We could of course say that `Json` is just a plain union with operands `Null`, `bool`, `int`, `double`, `List<dynamic>`, and `Map<String, dynamic>`. However, if we do that then we haven't modeled the constraint that the contents of those collections must again be of type `Json`. So we could have, for example, `<dynamic>[#foo]`, which _should_ be prevented because we don't expect to encounter a `Symbol` in a JSON value.
+
+It is not hard to express the recursive nature of these object graphs in terms of member signatures: We just make sure that a value of type `Json` is typed as a `Map<String, Json>` in the case where it is a map, and so on. This doesn't rely on any special type system magic. It just requires that each recursive type is supported by a corresponding extension type, because `Union6` won't suffice.
+
+
+
 
 
 ## Future extensions
@@ -118,12 +136,10 @@ If Dart adds support for [implicit constructors][] then we will be able to avoid
 ```dart
 import 'package:extension_type_unions/extension_type_unions.dart';
 
-int f(Union2<int, String> x) {
-  return x.split(
-    (i) => i + 1,
-    (s) => s.length,
-  );
-}
+int f(Union2<int, String> x) => x.split(
+      (i) => i + 1,
+      (s) => s.length,
+    );
 
 void main() {
   print(f(1)); // '2'.
