@@ -1,11 +1,6 @@
-## 1.0.2
-
-- Update README.md, dependencies, and language version.
-
 ## 1.0.1
 
-- Modified to use `extension type` rather than `inline class` (the 
-  feature was renamed).
+- Improved the description in pubspec.yaml.
 
 ## 1.0.0
 
