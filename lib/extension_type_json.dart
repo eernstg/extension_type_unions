@@ -22,7 +22,7 @@ class InvalidJsonTypeException implements Exception {
   InvalidJsonTypeException(this.value);
 
   @override
-  String toString() => 'Json: value has type ${value.runtimeType}';
+  String toString() => 'Json: value $value has type ${value.runtimeType}';
 }
 
 /// Support handling of `jsonDecode` JSON representation.
