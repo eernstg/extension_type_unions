@@ -44,7 +44,7 @@ This example illustrates that this kind of union type can be used to declare tha
 
 The method `split` is used to handle the different cases (when the value of `x` is actually an `int` respectively a `String`). It is safe in the sense that it accepts actual arguments for the operands of the union type; that is, the first argument is a function (a callback) that receives an argument of type `int`, and the second argument is a function that receives an argument of type `String`, and `split` is going to call the one that fits the actual `value`.
 
-The extension getters `u21` and `u22` invoke the corresponding extension type constructors. For example, `1.u21` is the same thing as `Union2<int, String>.in1(1)`, which may again be understood conceptually as "turn `1` into a value of type `int | String`, using the first type in the union". The actual type arguments `int` and `String` are obtained from the context, which allows us to use the concise notation `1.u21`.
+The extension getters `u21` and `u22` invoke the corresponding extension type constructors. For example, `1.u21` is the same thing as `Union2<int, Never>.in1(1)`, which may again be understood conceptually as "turn `1` into a value of type `int | Never`, using the first type in the union". Note that this is a subtype of `Union2<int, T>` for any type `T`, which makes it usable, e.g., where a `Union2<int, String>` is expected.
 
 An alternative approach would be to use a plain type test:
 
@@ -60,16 +60,16 @@ This will run just fine, but there is no static type check on the cases: `x.valu
 
 ## Extension Type implications
 
-This package uses extension types in order to implement support for union types. There are a few important consequences of this choice, as described below.
+This package uses extension types in order to implement support for union types. This choice has a few important consequences.
 
 First, there is no run-time cost associated with the use of these union types, compared to the situation where we use a much more general type (say, `dynamic`) and then pass actual arguments of type, say, `int` or `String`. Applied to the example from the previous section, we would get the following variant:
 
 ```dart
-int h(dynamic x) {
-  if (x is int) return x + 1;
-  if (x is String) return x.length;
-  throw "Unexpected type";
-}
+int h(dynamic x) => switch (x) {
+      int() => x + 1,
+      String() => x.length,
+      _ => throw "Unexpected type",
+    };
 ```
 
 The approach that uses extension types is useful because (1) `g` is just as cheap as `h`, and (2) `g` gives rise to static type checks: It is an error to pass an actual argument to `g` which is not an `int` or a `String` (suitably wrapped up as a `Union2`).
@@ -78,7 +78,7 @@ The approach that uses extension types is useful because (1) `g` is just as chea
 
 The static type checks are strict, as usual, in that it is a compile-time error to pass, say, an argument of type `Union2<double, String>` to `f` or `g`. This means that we do keep track of the fact that `f` is intended to work on an `int` or on a `String`, and not on any other kind of object.
 
-However, it is always possible to violate the encapsulation of an extension type by applying a type cast to it. This is the basic trade-off which is inherently a property of extension types: There is no wrapper object, we're just using the underlying representation object directly, and the extension type as such is erased and does not exist at run time (it is replaced by the type of its field). Here is an example where we obtain an invalid value of type `Union2<int, String>`:
+However, it is always possible to violate the encapsulation of an extension type by applying a type cast to it. This is the basic trade-off which is inherently a property of extension types: There is no wrapper object, we're just using the underlying representation object directly, and the extension type as such is erased and does not exist at run time (it is replaced by its representation type). Here is an example where we obtain an invalid value of type `Union2<int, String>`:
 
 ```dart
 void main() {
@@ -94,7 +94,7 @@ void main() {
 
 This illustrates that a cast (`as`) to an extension type is possible (it succeeds at run time because the actual object is a `bool`, and the type of the `value` of the extension type is `Object?`). In other words, we can easily obtain an expression of type `Union2<int, String>` whose value isn't any of those two types.
 
-However, the point is that this will only happen if the code uses a type cast, and for an organization or developer who is using 'extension_type_unions' to detect type mismatches, it shouldn't be too difficult to simply avoid having any such casts.
+However, the point is that this will only happen if the code uses a type cast, and for an organization or developer who is using 'extension_type_unions' to detect type mismatches, it shouldn't be too difficult to simply avoid having any such type casts.
 
 Moreover, the extension type feature will be supported by a lint which will report the locations where such casts occur.
 
@@ -104,13 +104,13 @@ On the other hand, we would have firm guarantees (no instance of a class `C` can
 
 ## The type Json
 
-This package includes an extension type named `Json` which is used to support an approach which is typically used when a JSON term is parsed and modeled as an object structure that consists of lists, maps, and certain primitive values.
+This package includes an extension type named `Json` which is used to support an encoding which is typically used when a JSON term is parsed and modeled as an object structure that consists of lists, maps, and certain primitive values. In particular, `jsonDecode` in 'dart:convert' uses this encoding.
 
-This could be modeled as a recursive union type, but not as a plain union type. For example, a `Json` typed value could be a `List<Json>` that contains elements of type `Json` which could in turn be `List<Json>`, and so on. This implies that we cannot describe `Json` as a simple union of "other" types.
+This could be modeled as a recursive union type, but not as a plain union type. For example, a `Json` typed value could be a `List<Json>` that contains elements of type `Json` which could in turn be `List<Json>`, and so on. This implies that we cannot describe `Json` as a simple union of other types.
 
 ```dart
 // Assuming that Dart supports recursive typedefs (but it doesn't).
-rec typedef Json = 
+rec typedef Json =
     Null
   | bool
   | int
