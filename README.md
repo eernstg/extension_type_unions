@@ -121,7 +121,25 @@ rec typedef Json =
 
 We could of course say that `Json` is just a plain union with operands `Null`, `bool`, `int`, `double`, `List<dynamic>`, and `Map<String, dynamic>`. However, if we do that then we haven't modeled the constraint that the contents of those collections must again be of type `Json`. So we could have, for example, `<dynamic>[#foo]`, which _should_ be prevented because we don't expect to encounter a `Symbol` in a JSON value.
 
-It is not hard to express the recursive nature of these object graphs in terms of member signatures: We just make sure that a value of type `Json` is typed as a `Map<String, Json>` in the case where it is a map, and so on. This doesn't rely on any special type system magic. It just requires that each recursive type is supported by a corresponding extension type, because `Union6` won't suffice.
+It is not hard to express the recursive nature of these object graphs in terms of member signatures: We just make sure that a value of type `Json` is typed as a `Map<String, Json>` in the case where it is a map, and so on. This doesn't rely on any special type system magic. It just requires that each recursive type is supported by a corresponding extension type, because `Union6` won't suffice. Example:
+
+```dart
+import 'package:extension_type_unions/extension_type_json.dart';
+
+void main() {
+  var json = Json.fromSource(
+      '{"text": "foo", "value": 1, "status": false, "extra": null}');
+
+  json.splitNamed(
+    onMap: (map) {
+      for (var key in map.keys) {
+        print('$key => ${map[key]}');
+      }
+    },
+    onOther: (other) => throw "Expected a JSON map, got $other!",
+  );
+}
+```
 
 ## Future extensions
 
