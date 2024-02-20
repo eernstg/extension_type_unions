@@ -25,17 +25,55 @@ class InvalidJsonTypeException implements Exception {
   String toString() => 'Json: value has type ${value.runtimeType}';
 }
 
+/// Support handling of `jsonDecode` JSON representation.
+///
+/// This extension type supports handling of object graphs obtained
+/// from `jsonDecode` (or from any other source using the same encoding).
+/// In this encoding, JSON values are represented as as primitive values
+/// (of type `Null`, `bool`, `int`, `double`, `String`) or composite
+/// values (of type `List<dynamic>` or `Map<String, dynamic>`, whose
+/// contents are themselves subject to the same constraints).
 extension type Json._(Object? value) {
+  /// Create the given [value] as a JSON value.
+  ///
+  /// This constructor will validate the given object
+  /// structure when assertions are enabled.
   Json(this.value) : assert(isDeepValid(value as Json));
+
+  /// Create a JSON value containing null.
   const Json.fromNull() : value = null;
+
+  /// Create a JSON value containing the given [value].
   const Json.fromBool(bool this.value);
+
+  /// Create a JSON value containing the given [value].
   const Json.fromInt(int this.value);
+
+  /// Create a JSON value containing the given [value].
   const Json.fromDouble(double this.value);
+
+  /// Create a JSON value containing the given [value].
   const Json.fromString(String this.value);
+
+  /// Create a JSON value containing the given [value].
   const Json.fromList(List<Json> this.value);
+
+  /// Create a JSON value containing the given [value].
   const Json.fromMap(Map<String, Json> this.value);
+
+  /// Create a JSON value corresponding to the given [source].
+  ///
+  /// The [source] is transformed by `jsonDecode` to an object
+  /// structure which is then the [value].
   Json.fromSource(String source) : value = jsonDecode(source);
 
+  /// Deeply validate the given [json].
+  ///
+  /// [json] is considered valid iff it contains a primitive value (of
+  /// type `Null`, `bool`, `int`, `double`, `String`) or a composite
+  /// value (of type `List<dynamic>` or `Map<String, dynamic>`) whose
+  /// elements (of the list) or values (of the map) satisfy the same
+  /// constraints recursively.
   static bool isDeepValid(Json json) {
     var v = json.value;
     if (v == null || v is bool || v is num || v is String) {
@@ -57,6 +95,16 @@ extension type Json._(Object? value) {
     return false;
   }
 
+  /// Validate this JSON value.
+  ///
+  /// This JSON value is considered valid if it is an atomic value
+  /// (of type `Null`, `bool`, `int`, `double`, or `String`), or it
+  /// is a composite value (of type `List<dynamic>` or
+  /// `Map<String, dynamic>`. The elements and values of the latter
+  /// are ignored.
+  ///
+  /// If a recursive validation is required then the static function
+  /// [isDeepValid] can be used.
   bool get isValid =>
       value == null ||
       value is bool ||
@@ -90,6 +138,18 @@ extension type Json._(Object? value) {
   bool get isList => value is List<Json>;
   bool get isMap => value is Map<String, Json>;
 
+  /// Handle each possible shape of this JSON value.
+  ///
+  /// This method is used to discriminate the possible shapes of
+  /// this JSON value, similarly to a `switch` expression. It accepts
+  /// one function per shape, unconditionally, and using positional
+  /// parameters. This is the most concise approach. Use [splitNamed]
+  /// if a more flexible (but less concise) approach is preferred.
+  ///
+  /// In the case where this JSON value is malformed (i.e., it is not of
+  /// type `Null`, `bool`, `int`, `double`, `String`, `List<dynamic>`,
+  /// or `Map<String, dynamic>`), an `InvalidJsonTypeException` is
+  /// thrown, holding the given [value].
   R split<R>(
     R Function() onNull,
     R Function(bool) onBool,
@@ -110,6 +170,15 @@ extension type Json._(Object? value) {
     throw InvalidJsonTypeException(value);
   }
 
+  /// Handle selected possible shapes of this JSON value.
+  ///
+  /// This method is used to discriminate some or all of the possible
+  /// shapes of this JSON value, similarly to a `switch` expression. It
+  /// accepts a function per shape, using an optional named parameter.
+  /// If the actual case is not handled (say, it's a [String], and no
+  /// actual argument named `onString` was provided, or it was null)
+  /// then `onOther` is invoked. Finally, `onInvalid` is invoked in the
+  /// case where this is not a valid JSON value.
   R? splitNamed<R>({
     R Function()? onNull,
     R Function(bool)? onBool,
