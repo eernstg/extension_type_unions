@@ -1,3 +1,7 @@
+## 1.0.7
+
+- Add more DartDoc comments.
+
 ## 1.0.6
 
 - Add more DartDoc comments.
