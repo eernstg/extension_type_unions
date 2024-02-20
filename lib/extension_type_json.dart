@@ -2,6 +2,22 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+/// Support extension type based handling of JSON values whose
+/// representation is the same as the one used by `jsonDecode` of
+/// 'dart:convert' (that is, the value has type [Null], [bool], [int],
+/// [double], [String], `List<dynamic>`, or `Map<String, dynamic>`,
+/// and the contents of the collection types are again subject to the
+/// same constraints, recursively.
+///
+/// The extension type [Json] has methods to validate such encodings. It
+/// has other methods to discriminate the different cases (in order to do
+/// one thing when the value is a [bool] and a different thing when it is
+/// a [List], and so on), similarly to a `switch` expression. Finally, it
+/// has methods to obtaind the value with the proper static type (e.g.,
+/// `myJson.asBoolOrNull` is the given [bool] value when it is a [bool],
+/// and null otherwise).
+library;
+
 import 'dart:convert';
 
 /// Thrown when an invalid Json type value is detected.
