@@ -114,28 +114,63 @@ extension type Json._(Object? value) {
       value is List<Json> ||
       value is Map<String, Json>;
 
+  /// Get the [bool] value of this JSON value, or null if other type.
   bool? get asBoolOrNull => value is bool ? value as bool : null;
+
+  /// Get the [int] value of this JSON value, or null if other type.
   int? get asIntOrNull => value is int ? value as int : null;
+
+  /// Get the [double] value of this JSON value, or null if other type.
   double? get asDoubleOrNull => value is double ? value as double : null;
+
+  /// Get the [String] value of this JSON value, or null if other type.
   String? get asStringOrNull => value is String ? value as String : null;
+
+  /// Get the [List] value of this JSON value, or null if other type.
   List<Json>? get asListOrNull =>
       value is List<Json> ? value as List<Json> : null;
+
+  /// Get the [Map] value of this JSON value, or null if other type.
   Map<String, Json>? get asMapOrNull =>
       value is Map<String, Json> ? value as Map<String, Json> : null;
 
+  /// Get the [bool] value of this JSON value, or throw if other type.
   bool get asBool => value as bool;
+
+  /// Get the [int] value of this JSON value, or throw if other type.
   int get asInt => value as int;
+
+  /// Get the [double] value of this JSON value, or throw if other type.
   double get asDouble => value as double;
+
+  /// Get the [String] value of this JSON value, or throw if other type.
   String get asString => value as String;
+
+  /// Get the [List] value of this JSON value, or throw if other type.
   List<Json> get asList => value as List<Json>;
+
+  /// Get the [Map] value of this JSON value, throw if other type.
   Map<String, Json> get asMap => value as Map<String, Json>;
 
+  /// Return true iff this JSON value is null.
   bool get isNull => value == null;
+
+  /// Return true iff this JSON value is a [bool].
   bool get isBool => value is bool;
+
+  /// Return true iff this JSON value is a [int].
   bool get isInt => value is int;
+
+  /// Return true iff this JSON value is a [double].
   bool get isDouble => value is double;
+
+  /// Return true iff this JSON value is a [String].
   bool get isString => value is String;
+
+  /// Return true iff this JSON value is a [List].
   bool get isList => value is List<Json>;
+
+  /// Return true iff this JSON value is a [Map].
   bool get isMap => value is Map<String, Json>;
 
   /// Handle each possible shape of this JSON value.
