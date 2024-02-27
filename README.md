@@ -102,6 +102,32 @@ An alternative approach would be to use a regular class (rather than an extensio
 
 On the other hand, we would have firm guarantees (no instance of a class `C` can be obtained without running a generative constructor of `C`, and the constructors of the `Union...` classes _do_ check that the given `value` has the required type), i.e., there would never exist an invalid union value. On the other hand, it would be a performance cost (time and space), and the assumption behind this package is that the trade-off associated with the use of extension types is more useful in practice.
 
+## The bounded variant
+
+The package also contains a library, 'bounded_extension_type_unions.dart', which is identical to 'extension_type_unions.dart' except that each union type accepts one more type argument which is used as the bound for all the other type arguments, and this type argument is the value of the union type at run time.
+
+For example, we could use `Union2<Iterable<num>, List<num>, Iterable<int>>`, which is a union type that allows for a `List<num>` and for an `Iterable<int>`. However, whereas the plain extension type union would be erased to `Object?` at run time, the bounded kind gets erased to the bound, here `Iterable<num>`. In other words, it is still possible to obtain a value whose static type is `Union2<Iterable<num>, List<num>, Iterable<int>>` which is neither a `List<num>` or an `Iterable<int>`, but it _will_ definitely be an object which is typable as an `Iterable<num>`.
+
+```dart
+import 'package:extension_type_unions/bounded_extension_type_unions.dart';
+
+int f(Union2<Iterable<num>, List<num>, Iterable<int>> x) => x.split(
+      (list) => list[0].floor(),
+      (iter) => iter.first,
+    );
+
+void main() {
+  print(f([1.5, 2.5, 3.5].u21)); // '1'.
+  print(f(['Hello', 'world'].map((s) => s.length).u22)); // '5'.
+
+  // The run-time type is the bound, which is safer.
+  var u = true as Union2<Iterable<num>, List<num>, Iterable<int>>; // Throws.
+}
+```
+
+The bounded extension type unions are less convenient when a type is specified, because the bound must be chosen and written explicitly by the developer. In return for this extra work and verbosity, bounded extension type unions have better type run-time safety.
+
+
 ## The type Json
 
 This package includes an extension type named `Json` which is used to support an encoding which is typically used when a JSON term is parsed and modeled as an object structure that consists of lists, maps, and certain primitive values. In particular, `jsonDecode` in 'dart:convert' uses this encoding.
