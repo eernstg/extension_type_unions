@@ -1,7 +1,11 @@
+## 1.0.9
+
+- Clean up whitespace.
+
 ## 1.0.8
 
-- Added 'bounded_extension_type_unions.dart', providing a variant of
-  the union types provided by 'extension_type_unions.dart' which offers
+- Added `bounded_extension_type_unions.dart`, providing a variant of
+  the union types provided by `extension_type_unions.dart` which offers
   improved run-time type safety in return for some verbosity.
 
 ## 1.0.7

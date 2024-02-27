@@ -3,7 +3,7 @@ description: >-
   Simple union types using extension types. Types: the union of
   `int` and `String` is `Union2<int, String>`. Values: `42.u21` is
   `42` with type `Union2<int, Never>`.
-version: 1.0.8
+version: 1.0.9
 repository: https://github.com/eernstg/extension_type_unions
 
 environment:
