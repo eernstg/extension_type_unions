@@ -67,6 +67,7 @@ void main() {
   // possible to create an invalid union value, but it gets much less off
   // track.
   try {
+    // ignore: unused_local_variable
     var u = true as Union2<Bound, int, String>; // Throws.
     print('(never reached)');
   } catch (_) {
