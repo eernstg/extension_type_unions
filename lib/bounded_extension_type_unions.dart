@@ -148,7 +148,8 @@ extension type Union3<X, X1 extends X, X2 extends X, X3 extends X>._(X value) {
   }
 }
 
-extension type Union4<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X>._(X value) {
+extension type Union4<X, X1 extends X, X2 extends X, X3 extends X,
+    X4 extends X>._(X value) {
   /// Create a [Union4] value from the first type argument.
   Union4.in1(X1 this.value);
 
@@ -238,7 +239,8 @@ extension type Union4<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X>
   }
 }
 
-extension type Union5<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X, X5 extends X>._(X value) {
+extension type Union5<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
+    X5 extends X>._(X value) {
   /// Create a [Union5] value from the first type argument.
   Union5.in1(X1 this.value);
 
@@ -345,7 +347,8 @@ extension type Union5<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
-extension type Union6<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X, X5 extends X, X6 extends X>._(X value) {
+extension type Union6<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
+    X5 extends X, X6 extends X>._(X value) {
   /// Create a [Union6] value from the first type argument.
   Union6.in1(X1 this.value);
 
@@ -473,7 +476,8 @@ extension type Union6<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
-extension type Union7<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X, X5 extends X, X6 extends X, X7 extends X>._(X value) {
+extension type Union7<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
+    X5 extends X, X6 extends X, X7 extends X>._(X value) {
   /// Create a [Union7] value from the first type argument.
   Union7.in1(X1 this.value);
 
@@ -618,7 +622,8 @@ extension type Union7<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
-extension type Union8<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X, X5 extends X, X6 extends X, X7 extends X, X8 extends X>._(X value) {
+extension type Union8<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
+    X5 extends X, X6 extends X, X7 extends X, X8 extends X>._(X value) {
   /// Create a [Union8] value from the first type argument.
   Union8.in1(X1 this.value);
 
@@ -780,7 +785,17 @@ extension type Union8<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
-extension type Union9<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X, X5 extends X, X6 extends X, X7 extends X, X8 extends X, X9 extends X>._(X value) {
+extension type Union9<
+    X,
+    X1 extends X,
+    X2 extends X,
+    X3 extends X,
+    X4 extends X,
+    X5 extends X,
+    X6 extends X,
+    X7 extends X,
+    X8 extends X,
+    X9 extends X>._(X value) {
   /// Create a [Union9] value from the first type argument.
   Union9.in1(X1 this.value);
 
@@ -1021,22 +1036,22 @@ extension UnionInjectExtension<X> on X {
       Union8.in7(this);
   Union8<X, Never, Never, Never, Never, Never, Never, Never, X> get u88 =>
       Union8.in8(this);
-  Union9<X, X, Never, Never, Never, Never, Never, Never, Never, Never> get u91 =>
-      Union9.in1(this);
-  Union9<X, Never, X, Never, Never, Never, Never, Never, Never, Never> get u92 =>
-      Union9.in2(this);
-  Union9<X, Never, Never, X, Never, Never, Never, Never, Never, Never> get u93 =>
-      Union9.in3(this);
-  Union9<X, Never, Never, Never, X, Never, Never, Never, Never, Never> get u94 =>
-      Union9.in4(this);
-  Union9<X, Never, Never, Never, Never, X, Never, Never, Never, Never> get u95 =>
-      Union9.in5(this);
-  Union9<X, Never, Never, Never, Never, Never, X, Never, Never, Never> get u96 =>
-      Union9.in6(this);
-  Union9<X, Never, Never, Never, Never, Never, Never, X, Never, Never> get u97 =>
-      Union9.in7(this);
-  Union9<X, Never, Never, Never, Never, Never, Never, Never, X, Never> get u98 =>
-      Union9.in8(this);
-  Union9<X, Never, Never, Never, Never, Never, Never, Never, Never, X> get u99 =>
-      Union9.in9(this);
+  Union9<X, X, Never, Never, Never, Never, Never, Never, Never, Never>
+      get u91 => Union9.in1(this);
+  Union9<X, Never, X, Never, Never, Never, Never, Never, Never, Never>
+      get u92 => Union9.in2(this);
+  Union9<X, Never, Never, X, Never, Never, Never, Never, Never, Never>
+      get u93 => Union9.in3(this);
+  Union9<X, Never, Never, Never, X, Never, Never, Never, Never, Never>
+      get u94 => Union9.in4(this);
+  Union9<X, Never, Never, Never, Never, X, Never, Never, Never, Never>
+      get u95 => Union9.in5(this);
+  Union9<X, Never, Never, Never, Never, Never, X, Never, Never, Never>
+      get u96 => Union9.in6(this);
+  Union9<X, Never, Never, Never, Never, Never, Never, X, Never, Never>
+      get u97 => Union9.in7(this);
+  Union9<X, Never, Never, Never, Never, Never, Never, Never, X, Never>
+      get u98 => Union9.in8(this);
+  Union9<X, Never, Never, Never, Never, Never, Never, Never, Never, X>
+      get u99 => Union9.in9(this);
 }
