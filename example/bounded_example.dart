@@ -4,7 +4,12 @@
 
 import 'package:extension_type_unions/bounded_extension_type_unions.dart';
 
-typedef Bound = Compareble<Object>; // A tight bound which is used often below.
+typedef Bound = Comparable<Object>; // A tight bound which is used often below.
+
+// Note that a bounded union type is more verbose to specify, and the developer
+// must choose a common supertype manually. Other things work the same as
+// the plain (unbounded) kind of union types. In return we get better run-time
+// type safety.
 
 // Use `split` to discriminate: Receive a callback for every case, in order.
 
@@ -61,8 +66,10 @@ void main() {
   // is restricted to be `Bound` at run time. This means that it is still
   // possible to create an invalid union value, but it gets much less off
   // track.
-  var u = true as Union2<Bound, int, String>; // Throws.
-  print(doSplitNamedInvalid(u)); // Not reached.
-  print(u.isValid); // Not reached.
-  // doSplit(u); // Still throws.
+  try {
+    var u = true as Union2<Bound, int, String>; // Throws.
+    print('(never reached)');
+  } catch (_) {
+    print('Caught the exception.');
+  }
 }
