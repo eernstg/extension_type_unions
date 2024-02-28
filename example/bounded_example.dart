@@ -70,7 +70,8 @@ void main() {
   // or `String` at compile time (just like the unbounded version), but it
   // is restricted to be `Bound` at run time (where the unbounded version can
   // be anything whatsoever). This means that it is still possible to create
-  // an invalid union value, but it gets much less off track.
+  // an invalid union value, but it's protected in exactly the same way as the
+  // `Bound` type used as a normal type.
   try {
     var u = true as Union2<Bound, int, String>; // Throws.
     print("Never reached, so we won't see $u.");
