@@ -4,12 +4,14 @@
 
 import 'package:extension_type_unions/bounded_extension_type_unions.dart';
 
-typedef Bound = Comparable<Object>; // A tight bound which is used often below.
-
 // Note that a bounded union type is more verbose to specify, and the developer
-// must choose a common supertype manually. Other things work the same as
-// the plain (unbounded) kind of union types. In return we get better run-time
-// type safety.
+// must choose a common supertype manually (that's the first type argument).
+// Other things work the same as the plain (unbounded) kind of union types.
+// In return we get better run-time type safety.
+
+// A short name for an upper bound of `int` and `String`.
+
+typedef Bound = Comparable<Object>;
 
 // Use `split` to discriminate: Receive a callback for every case, in order.
 
@@ -38,15 +40,18 @@ void main() {
   // We can introduce union typed expressions by calling a constructor.
   // The constructor `UnionN.inK` injects a value of the `K`th type argument
   // to a union type `UnionN` with `N` type arguments. For example,
-  // `Union2<int, String>.in1` turns an `int` into a `Union2<int, String>`.
+  // `Union2<Bound, int, String>.in1` turns an `int` into a
+  // `Union2<Bound, int, String>`.
   print(doSplit(Union2.in1(10))); // Prints '10'.
   print(doSplit(Union2.in2('ab'))); // '2'.
 
-  // We can also use the extension getters `uNK` where `N` is the arity
-  // of the union (the number of operands) and `K` is the position of the type
-  // argument describing the actual value. So `u21` on an `int` returns a
-  // result of type `Union2<int, Never>` (which will work as a `Union2<int, S>`
-  // for any `S`).
+  // We can also use the extension getters `uNK` where `N` is the arity of the
+  // union (the number of operands) and `K` is the position of the type argument
+  // describing the actual value. So `u21` on an `int` returns a result of type
+  // `Union2<int, int, Never>`. This expression works as a `Union2<B, int, S>`
+  // for any `S` and for any bound `B` because we must have `int <: B` and
+  // `S <: B` in order to satisfy the bounds of `Union2`, and in particular
+  // `int <: B` ensures that `Union2<int, int, Never> <: Union2<B, int, S>`.
   print(doSplit(10.u21)); // '10'.
   print(doSplit('ab'.u22)); // '2'.
   print(doSplitNamed(10.u21)); // '10'.
@@ -63,13 +68,12 @@ void main() {
   // that we have a bound type which is reified allows us to check for that.
   // In other words, `Union2<Bound, int, String>` is restricted to be `int`
   // or `String` at compile time (just like the unbounded version), but it
-  // is restricted to be `Bound` at run time. This means that it is still
-  // possible to create an invalid union value, but it gets much less off
-  // track.
+  // is restricted to be `Bound` at run time (where the unbounded version can
+  // be anything whatsoever). This means that it is still possible to create
+  // an invalid union value, but it gets much less off track.
   try {
-    // ignore: unused_local_variable
     var u = true as Union2<Bound, int, String>; // Throws.
-    print('(never reached)');
+    print("Never reached, so we won't see $u.");
   } catch (_) {
     print('Caught the exception.');
   }
