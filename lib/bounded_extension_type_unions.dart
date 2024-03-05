@@ -5,7 +5,7 @@
 /// Thrown when an invalid union type value is detected.
 ///
 /// An expression whose static type is a union type of the form
-/// `UnionK<X1, ... XK>` and whose value does not have any of the types
+/// `UnionK<X, X1, ... XK>` and whose value does not have any of the types
 /// `X1` .. `XK` is an _invalid_ union type value. This exception is used
 /// to report that such a value has been encountered.
 class InvalidUnionTypeException implements Exception {
@@ -19,6 +19,7 @@ class InvalidUnionTypeException implements Exception {
   String toString() => '$type: value has type ${value.runtimeType}';
 }
 
+/// Emulate the union of the types [X1] and [X2], bounded by [X].
 extension type Union2<X, X1 extends X, X2 extends X>._(X value) {
   /// Create a [Union2] value from the first type argument.
   Union2.in1(X1 this.value);
@@ -74,6 +75,7 @@ extension type Union2<X, X1 extends X, X2 extends X>._(X value) {
   }
 }
 
+/// Emulate the union of the types [X1], [X2], and [X3], bounded by [X].
 extension type Union3<X, X1 extends X, X2 extends X, X3 extends X>._(X value) {
   /// Create a [Union3] value from the first type argument.
   Union3.in1(X1 this.value);
@@ -148,6 +150,7 @@ extension type Union3<X, X1 extends X, X2 extends X, X3 extends X>._(X value) {
   }
 }
 
+/// Emulate the union of the types [X1] .. [X4], bounded by [X].
 extension type Union4<X, X1 extends X, X2 extends X, X3 extends X,
     X4 extends X>._(X value) {
   /// Create a [Union4] value from the first type argument.
@@ -239,6 +242,7 @@ extension type Union4<X, X1 extends X, X2 extends X, X3 extends X,
   }
 }
 
+/// Emulate the union of the types [X1] .. [X5], bounded by [X].
 extension type Union5<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
     X5 extends X>._(X value) {
   /// Create a [Union5] value from the first type argument.
@@ -347,6 +351,7 @@ extension type Union5<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
+/// Emulate the union of the types [X1] .. [X6], bounded by [X].
 extension type Union6<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
     X5 extends X, X6 extends X>._(X value) {
   /// Create a [Union6] value from the first type argument.
@@ -476,6 +481,7 @@ extension type Union6<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
+/// Emulate the union of the types [X1] .. [X7], bounded by [X].
 extension type Union7<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
     X5 extends X, X6 extends X, X7 extends X>._(X value) {
   /// Create a [Union7] value from the first type argument.
@@ -622,6 +628,7 @@ extension type Union7<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
+/// Emulate the union of the types [X1] .. [X8], bounded by [X].
 extension type Union8<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
     X5 extends X, X6 extends X, X7 extends X, X8 extends X>._(X value) {
   /// Create a [Union8] value from the first type argument.
@@ -785,6 +792,7 @@ extension type Union8<X, X1 extends X, X2 extends X, X3 extends X, X4 extends X,
   }
 }
 
+/// Emulate the union of the types [X1] .. [X9], bounded by [X].
 extension type Union9<
     X,
     X1 extends X,
@@ -975,16 +983,18 @@ extension type Union9<
 }
 
 /// Extension on any type that allows it to be coerced
-/// into a union type. It providers getters named `uNM`
+/// into a union type. It provides getters named `uNM`
 /// where `N` is the arity of the union type and `M` is
 /// the number of the type argument which is used for
 /// the given value.
 ///
 /// For example `1.u21` is an expression of type
-/// `Union2<int, Never>` and `1.u22` is an expression of
-/// type `Union2<Never, int>`. Since `Never` is a subtype
-/// of all other types, `1.u21` can be used where an expression
-/// of type `Union2<int, T>` is required for any `T`.
+/// `Union2<int, int, Never>` and `1.u22` is an expression of
+/// type `Union2<int, Never, int>`. Since `Never` is a subtype
+/// of all other types, and every bound `B` must be a supertype
+/// of `int`, `1.u21` can be used where an expression of type
+/// `Union2<B, int, T>` is required for any `T`, and for any `B`
+/// such that the declared type parameter bounds are satisfied.
 extension UnionInjectExtension<X> on X {
   Union2<X, X, Never> get u21 => Union2.in1(this);
   Union2<X, Never, X> get u22 => Union2.in2(this);

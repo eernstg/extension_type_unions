@@ -19,6 +19,7 @@ class InvalidUnionTypeException implements Exception {
   String toString() => '$type: value has type ${value.runtimeType}';
 }
 
+/// Emulate the union of the types [X1] and [X2].
 extension type Union2<X1, X2>._(Object? value) {
   /// Create a [Union2] value from the first type argument.
   Union2.in1(X1 this.value);
@@ -74,6 +75,7 @@ extension type Union2<X1, X2>._(Object? value) {
   }
 }
 
+/// Emulate the union of the types [X1], [X2], and [X3].
 extension type Union3<X1, X2, X3>._(Object? value) {
   /// Create a [Union3] value from the first type argument.
   Union3.in1(X1 this.value);
@@ -148,6 +150,7 @@ extension type Union3<X1, X2, X3>._(Object? value) {
   }
 }
 
+/// Emulate the union of the types [X1] .. [X4].
 extension type Union4<X1, X2, X3, X4>._(Object? value) {
   /// Create a [Union4] value from the first type argument.
   Union4.in1(X1 this.value);
@@ -238,6 +241,7 @@ extension type Union4<X1, X2, X3, X4>._(Object? value) {
   }
 }
 
+/// Emulate the union of the types [X1] .. [X5].
 extension type Union5<X1, X2, X3, X4, X5>._(Object? value) {
   /// Create a [Union5] value from the first type argument.
   Union5.in1(X1 this.value);
@@ -345,6 +349,7 @@ extension type Union5<X1, X2, X3, X4, X5>._(Object? value) {
   }
 }
 
+/// Emulate the union of the types [X1] .. [X6].
 extension type Union6<X1, X2, X3, X4, X5, X6>._(Object? value) {
   /// Create a [Union6] value from the first type argument.
   Union6.in1(X1 this.value);
@@ -473,6 +478,7 @@ extension type Union6<X1, X2, X3, X4, X5, X6>._(Object? value) {
   }
 }
 
+/// Emulate the union of the types [X1] .. [X7].
 extension type Union7<X1, X2, X3, X4, X5, X6, X7>._(Object? value) {
   /// Create a [Union7] value from the first type argument.
   Union7.in1(X1 this.value);
@@ -618,6 +624,7 @@ extension type Union7<X1, X2, X3, X4, X5, X6, X7>._(Object? value) {
   }
 }
 
+/// Emulate the union of the types [X1] .. [X8].
 extension type Union8<X1, X2, X3, X4, X5, X6, X7, X8>._(Object? value) {
   /// Create a [Union8] value from the first type argument.
   Union8.in1(X1 this.value);
@@ -780,6 +787,7 @@ extension type Union8<X1, X2, X3, X4, X5, X6, X7, X8>._(Object? value) {
   }
 }
 
+/// Emulate the union of the types [X1] .. [X9].
 extension type Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9>._(Object? value) {
   /// Create a [Union9] value from the first type argument.
   Union9.in1(X1 this.value);
@@ -959,17 +967,16 @@ extension type Union9<X1, X2, X3, X4, X5, X6, X7, X8, X9>._(Object? value) {
   }
 }
 
-/// Extension on any type that allows it to be coerced
-/// into a union type. It providers getters named `uNM`
-/// where `N` is the arity of the union type and `M` is
-/// the number of the type argument which is used for
-/// the given value.
+/// Extension on any type that allows it to be coerced to a union type.
 ///
-/// For example `1.u21` is an expression of type
-/// `Union2<int, Never>` and `1.u22` is an expression of
-/// type `Union2<Never, int>`. Since `Never` is a subtype
-/// of all other types, `1.u21` can be used where an expression
-/// of type `Union2<int, T>` is required for any `T`.
+/// The extension provides getters named `uNM` where `N` is the arity
+/// of the union type and `M` is the number of the type argument which
+/// is used for the given value.
+///
+/// For example `1.u21` is an expression of type `Union2<int, Never>`
+/// and `1.u22` is an expression of type `Union2<Never, int>`. Since
+/// `Never` is a subtype of all other types, `1.u21` can be used where
+/// an expression of type `Union2<int, T>` is required, for any `T`.
 extension UnionInjectExtension<X> on X {
   Union2<X, Never> get u21 => Union2.in1(this);
   Union2<Never, X> get u22 => Union2.in2(this);

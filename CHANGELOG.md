@@ -1,3 +1,7 @@
+## 1.0.10
+
+- Add DartDoc comments, correct typos in comments.
+
 ## 1.0.9
 
 - Clean up whitespace.
